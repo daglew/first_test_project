@@ -20,4 +20,5 @@ class AutomationPraticeMyAccountPage:
     #     input_email_address_field.clear()
     #     input_email_address_field.
 
-
+    # button_create_an_account = self.driver.find_element(By.XPATH, automation_my_account_xpath.BUTTON_CREATE_AN_ACCOUNT)
+    # button_create_an_account.click()

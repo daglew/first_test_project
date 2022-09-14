@@ -18,10 +18,13 @@ from selenium.webdriver.common.by import By
 
 from tests.commons.pages.automation_practice import Xpath as automation_xpaths
 from tests.objects.initialize_webdriver import InitializeWebDriver
+from tests.objects.pages.automation_practice_create_account_page import AutomationPraticeCreateAccount
 from tests.objects.pages.automation_practice_my_account_page import AutomationPraticeMyAccountPage
 from tests.objects.pages.automation_practice_page import AutomationPracticePage
 from tests.commons.pages.automation_practice_my_account import Ids as automation_my_account_ids
 from tests.commons.pages.automation_practice_my_account import Xpath as automation_my_account_xpath
+from tests.commons.pages.automation_practice_create_an_account import Ids as automation_create_an_account_id
+
 
 
 class TestAutomationPractice(InitializeWebDriver):
@@ -44,8 +47,14 @@ class TestAutomationPractice(InitializeWebDriver):
         logging.warning("Click on Create an Account button.")
         button_create_an_account = self.driver.find_element(By.XPATH, automation_my_account_xpath.BUTTON_CREATE_AN_ACCOUNT)
         button_create_an_account.click()
+        page = AutomationPraticeCreateAccount(driver=self.driver)
+        expected_title = page.title
+        title = self.driver.title
 
         logging.warning("Enter your Personal Information, Address and Contact info.")
+        radio_button_enter_personal_information = self.driver.find_element(By.ID, automation_create_an_account_id.RADIO_BUTTON_PERSONAL_INF)
+        radio_button_enter_personal_information.click()
+
 
 
 
