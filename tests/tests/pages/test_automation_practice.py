@@ -29,6 +29,20 @@ from tests.commons.pages.automation_practice_create_an_account import Ids as aut
 
 class TestAutomationPractice(InitializeWebDriver):
 
+    def find_and_click(self, locator: str):
+        if locator.startswith("//"):
+            element = self.driver.find_element(By.XPATH, locator)
+            element.click()
+        else:
+            element = self.driver.find_element(By.ID, locator)
+            element.click()
+        return element
+
+    def find_input_send_keys(self, locator: str, input_keys: str):
+        element = self.find_and_click(locator=locator)
+        element.clear()
+        element.send_keys(input_keys)
+
     def test_create_account(self):
         logging.warning("Open this url  http://automationpractice.com/index.php and maximalize window, check title")
         page = AutomationPracticePage(self.driver)
@@ -39,10 +53,8 @@ class TestAutomationPractice(InitializeWebDriver):
 
         logging.warning("Enter your email address in 'Create an account' section.")
         # page.enter_email_and_create_account()
-        input_email_address_field = self.driver.find_element(By.ID, automation_my_account_ids.INPUT_EMAIL_ADDRESS)
-        input_email_address_field.click()
-        input_email_address_field.clear()
-        input_email_address_field.send_keys("zuzia_14@wp.pl")
+
+        self.find_input_send_keys(locator=automation_my_account_ids.INPUT_EMAIL_ADDRESS, input_keys="zuzia_14@wp.pl")
 
         logging.warning("Click on Create an Account button.")
         button_create_an_account = self.driver.find_element(By.XPATH, automation_my_account_xpath.BUTTON_CREATE_AN_ACCOUNT)
@@ -50,13 +62,17 @@ class TestAutomationPractice(InitializeWebDriver):
         page = AutomationPraticeCreateAccount(driver=self.driver)
         expected_title = page.title
         title = self.driver.title
+        assert expected_title == title, f"Expected title: {expected_title} is different than current title: {title}."
 
         logging.warning("Enter your Personal Information, Address and Contact info.")
-        radio_button_enter_personal_information = self.driver.find_element(By.ID, automation_create_an_account_id.RADIO_BUTTON_PERSONAL_INF)
-        radio_button_enter_personal_information.click()
+        self.find_and_click(locator=automation_create_an_account_id.RADIO_BUTTON_PERSONAL_INF)
+
+        self.find_input_send_keys(locator=automation_create_an_account_id.FIRST_NAME_INPUT_ID, input_keys="Kazia")
 
 
 
+        #
+        # last_name_input = self.driver.find_element(By.ID, a)
 
         logging.warning("Click on Register button.")
         logging.warning("Validate that user is created.")
