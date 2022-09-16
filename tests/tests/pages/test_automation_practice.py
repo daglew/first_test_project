@@ -69,10 +69,16 @@ class TestAutomationPractice(InitializeWebDriver):
 
         self.find_input_send_keys(locator=automation_create_an_account_id.FIRST_NAME_INPUT_ID, input_keys="Kazia")
 
+        self.find_input_send_keys(locator=automation_create_an_account_id.LAST_NAME_INPUT_ID, input_keys="Blanka")
+
+        self.find_input_send_keys(locator=automation_create_an_account_id.INPUT_EMAIL_ID, input_keys="zuzia_14@wp.pl")
+
+        self.find_input_send_keys(locator=automation_create_an_account_id.INPUT_PASSWORD_ID, input_keys="fortuna17")
+
+        drop_day =
 
 
-        #
-        # last_name_input = self.driver.find_element(By.ID, a)
+
 
         logging.warning("Click on Register button.")
         logging.warning("Validate that user is created.")

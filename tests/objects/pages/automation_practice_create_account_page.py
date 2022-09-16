@@ -27,3 +27,4 @@ class AutomationPraticeCreateAccount:
         a = self.find_and_click(locator=locator)
         a.clear()
         a.sendd_keys(input_keys)
+
