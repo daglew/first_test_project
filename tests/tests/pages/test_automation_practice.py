@@ -23,8 +23,8 @@ from tests.objects.pages.automation_practice_my_account_page import AutomationPr
 from tests.objects.pages.automation_practice_page import AutomationPracticePage
 from tests.commons.pages.automation_practice_my_account import Ids as automation_my_account_ids
 from tests.commons.pages.automation_practice_my_account import Xpath as automation_my_account_xpath
-from tests.commons.pages.automation_practice_create_an_account import Ids as automation_create_an_account_id
-
+from tests.commons.pages.automation_practice_create_an_account import Ids as automation_create_an_account_id, \
+    dropdown_years, dropdown_day, dropdown_months
 
 
 class TestAutomationPractice(InitializeWebDriver):
@@ -75,7 +75,14 @@ class TestAutomationPractice(InitializeWebDriver):
 
         self.find_input_send_keys(locator=automation_create_an_account_id.INPUT_PASSWORD_ID, input_keys="fortuna17")
 
-        drop_day =
+        self.find_and_click(locator=dropdown_day(value=3))
+
+        self.find_and_click(locator=dropdown_months(value=2))
+
+        self.find_and_click(locator=dropdown_years(value=2002))
+
+
+
 
 
 
