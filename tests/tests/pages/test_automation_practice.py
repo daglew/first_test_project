@@ -24,7 +24,7 @@ from tests.objects.pages.automation_practice_page import AutomationPracticePage
 from tests.commons.pages.automation_practice_my_account import Ids as automation_my_account_ids
 from tests.commons.pages.automation_practice_my_account import Xpath as automation_my_account_xpath
 from tests.commons.pages.automation_practice_create_an_account import Ids as automation_create_an_account_id, \
-    dropdown_years, dropdown_day, dropdown_months
+    dropdown_years, dropdown_day, dropdown_months, state_selector
 
 
 class TestAutomationPractice(InitializeWebDriver):
@@ -54,7 +54,7 @@ class TestAutomationPractice(InitializeWebDriver):
         logging.warning("Enter your email address in 'Create an account' section.")
         # page.enter_email_and_create_account()
 
-        self.find_input_send_keys(locator=automation_my_account_ids.INPUT_EMAIL_ADDRESS, input_keys="zuzia_14@wp.pl")
+        self.find_input_send_keys(locator=automation_my_account_ids.INPUT_EMAIL_ADDRESS, input_keys="zuzia_143@wp.pl")
 
         logging.warning("Click on Create an Account button.")
         button_create_an_account = self.driver.find_element(By.XPATH, automation_my_account_xpath.BUTTON_CREATE_AN_ACCOUNT)
@@ -71,7 +71,7 @@ class TestAutomationPractice(InitializeWebDriver):
 
         self.find_input_send_keys(locator=automation_create_an_account_id.LAST_NAME_INPUT_ID, input_keys="Blanka")
 
-        self.find_input_send_keys(locator=automation_create_an_account_id.INPUT_EMAIL_ID, input_keys="zuzia_14@wp.pl")
+        self.find_input_send_keys(locator=automation_create_an_account_id.INPUT_EMAIL_ID, input_keys="zuzia_143@wp.pl")
 
         self.find_input_send_keys(locator=automation_create_an_account_id.INPUT_PASSWORD_ID, input_keys="fortuna17")
 
@@ -80,6 +80,22 @@ class TestAutomationPractice(InitializeWebDriver):
         self.find_and_click(locator=dropdown_months(value=2))
 
         self.find_and_click(locator=dropdown_years(value=2002))
+
+        self.find_and_click(locator=automation_create_an_account_id.CHECKBOX_NEWSLETTER)
+
+        self.find_and_click(locator=automation_create_an_account_id.CHECKBOX_RECEIVE_SPECIAL_OFFERTS)
+
+        self.find_input_send_keys(locator=automation_create_an_account_id.FIRST_NAME_INPUT_ID_2, input_keys="Kazia")
+
+        self.find_input_send_keys(locator=automation_create_an_account_id.LAST_NAME_INPUT_ID_2, input_keys="Blanka")
+
+        self.find_input_send_keys(locator=automation_create_an_account_id.ADDRESS_INPUT, input_keys="292 Browning Lane")
+
+        self.find_input_send_keys(locator=automation_create_an_account_id.CITY_INPUT, input_keys="Juneau")
+
+        self.find_input_send_keys(locator=automation_create_an_account_id.ZIP_CODE_INPUT, input_keys="99501-99950")
+
+        self.find_and_click(locator=state_selector(value=2))
 
 
 
