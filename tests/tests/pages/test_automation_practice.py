@@ -24,7 +24,7 @@ from tests.objects.pages.automation_practice_page import AutomationPracticePage
 from tests.commons.pages.automation_practice_my_account import Ids as automation_my_account_ids
 from tests.commons.pages.automation_practice_my_account import Xpath as automation_my_account_xpath
 from tests.commons.pages.automation_practice_create_an_account import Ids as automation_create_an_account_id, \
-    dropdown_years, dropdown_day, dropdown_months, state_selector
+    dropdown_years, dropdown_day, dropdown_months, state_selector, country_selector
 
 
 class TestAutomationPractice(InitializeWebDriver):
@@ -38,7 +38,7 @@ class TestAutomationPractice(InitializeWebDriver):
             element.click()
         return element
 
-    def find_input_send_keys(self, locator: str, input_keys: str):
+    def find_input_send_keys(self, locator: str, input_keys: str) -> object:
         element = self.find_and_click(locator=locator)
         element.clear()
         element.send_keys(input_keys)
@@ -93,11 +93,15 @@ class TestAutomationPractice(InitializeWebDriver):
 
         self.find_input_send_keys(locator=automation_create_an_account_id.CITY_INPUT, input_keys="Juneau")
 
+        self.find_and_click(locator=state_selector(value="Alaska"))
+
         self.find_input_send_keys(locator=automation_create_an_account_id.ZIP_CODE_INPUT, input_keys="99501-99950")
 
-        self.find_and_click(locator=state_selector(value=2))
+        self.find_and_click(locator=country_selector(country="United States"))
 
+        self.find_input_send_keys(locator=automation_create_an_account_id.MOBILE_PHONE_INPUT_ID, input_keys="123456789")
 
+        self.find_input_send_keys(locator=automation_create_an_account_id.ADDRRESS_EMAI_INPU, input_keys="zuzia_143@wp.pl")
 
 
 

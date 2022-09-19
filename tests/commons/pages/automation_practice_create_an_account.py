@@ -1,6 +1,8 @@
 class Xpath:
     DROPDOWN_YEARS = "//select[@id='years']/option[@value='2003']"
-    pass
+    COUNTRY_SELECTOR = "//select[@id='id_country']/option[@value='21']"
+    REGISTER_INPUT_XPATH = "//button[@id='submitAccount']/span"
+
 
 class Ids:
     RADIO_BUTTON_PERSONAL_INF = "id_gender2"
@@ -19,6 +21,8 @@ class Ids:
     CITY_INPUT = "city"
     ZIP_CODE_INPUT = "postcode"
     STATE_SELECTOR = "uniform-id_state"
+    MOBILE_PHONE_INPUT_ID = "phone_mobile"
+    ADDRRESS_EMAI_INPU = "alias"
 
 
 def dropdown_day(value: int):
@@ -30,5 +34,9 @@ def dropdown_months(value: int):
 def dropdown_years(value: int):
     return f"//select[@id='years']/option[@value='{value}']"
 
-def state_selector(value: int):
-    return f"//select[@id='id_state']/option[@value='{value}']"
+def state_selector(value: str):
+    return f"//select[@id='id_state']//*[contains(text(),'{value.capitalize()}')]"
+
+def country_selector(country: str):
+    return f"//div[@id='uniform-id_country']/span[.='{country}']"
+
