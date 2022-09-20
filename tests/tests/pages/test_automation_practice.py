@@ -54,7 +54,7 @@ class TestAutomationPractice(InitializeWebDriver):
         logging.warning("Enter your email address in 'Create an account' section.")
         # page.enter_email_and_create_account()
 
-        self.find_input_send_keys(locator=automation_my_account_ids.INPUT_EMAIL_ADDRESS, input_keys="zuzia_143@wp.pl")
+        self.find_input_send_keys(locator=automation_my_account_ids.INPUT_EMAIL_ADDRESS, input_keys="rzuzia_1453@wp.pl")
 
         logging.warning("Click on Create an Account button.")
         button_create_an_account = self.driver.find_element(By.XPATH, automation_my_account_xpath.BUTTON_CREATE_AN_ACCOUNT)
@@ -71,9 +71,9 @@ class TestAutomationPractice(InitializeWebDriver):
 
         self.find_input_send_keys(locator=automation_create_an_account_id.LAST_NAME_INPUT_ID, input_keys="Blanka")
 
-        self.find_input_send_keys(locator=automation_create_an_account_id.INPUT_EMAIL_ID, input_keys="zuzia_143@wp.pl")
+        self.find_input_send_keys(locator=automation_create_an_account_id.INPUT_EMAIL_ID, input_keys="rzuzia_1453@wp.pl")
 
-        self.find_input_send_keys(locator=automation_create_an_account_id.INPUT_PASSWORD_ID, input_keys="fortuna17")
+        self.find_input_send_keys(locator=automation_create_an_account_id.INPUT_PASSWORD_ID, input_keys="fortuna217")
 
         self.find_and_click(locator=dropdown_day(value=3))
 
@@ -95,19 +95,20 @@ class TestAutomationPractice(InitializeWebDriver):
 
         self.find_and_click(locator=state_selector(value="Alaska"))
 
-        self.find_input_send_keys(locator=automation_create_an_account_id.ZIP_CODE_INPUT, input_keys="99501-99950")
+        self.find_input_send_keys(locator=automation_create_an_account_id.ZIP_CODE_INPUT, input_keys="99501")
+
+        self.find_and_click(locator=automation_create_an_account_id.COUNTRY_SELECTOR_ID)
 
         self.find_and_click(locator=country_selector(country="United States"))
 
         self.find_input_send_keys(locator=automation_create_an_account_id.MOBILE_PHONE_INPUT_ID, input_keys="123456789")
 
-        self.find_input_send_keys(locator=automation_create_an_account_id.ADDRRESS_EMAI_INPU, input_keys="zuzia_143@wp.pl")
-
-
-
+        self.find_input_send_keys(locator=automation_create_an_account_id.ADDRRESS_EMAI_INPU, input_keys="rzuzia_1453@wp.pl")
 
 
         logging.warning("Click on Register button.")
+        self.find_and_click(locator=automation_create_an_account_id.REGISTER_BUTTON)
+
         logging.warning("Validate that user is created.")
 
 
