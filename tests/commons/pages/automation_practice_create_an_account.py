@@ -2,7 +2,7 @@ class Xpath:
     DROPDOWN_YEARS = "//select[@id='years']/option[@value='2003']"
     COUNTRY_SELECTOR = "//select[@id='id_country']/option[@value='21']"
     REGISTER_INPUT_XPATH = "//button[@id='submitAccount']/span"
-    REegisterBUTTON ="//html//body[@id='authentication']"
+
 
 class Ids:
     RADIO_BUTTON_PERSONAL_INF = "id_gender2"

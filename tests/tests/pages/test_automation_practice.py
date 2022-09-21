@@ -16,15 +16,19 @@ from time import sleep
 
 from selenium.webdriver.common.by import By
 
+from tests.commons.emails import Email
 from tests.commons.pages.automation_practice import Xpath as automation_xpaths
 from tests.objects.initialize_webdriver import InitializeWebDriver
 from tests.objects.pages.automation_practice_create_account_page import AutomationPraticeCreateAccount
+from tests.objects.pages.automation_practice_find_my_account import AutomationPraticeFindMyAccount
 from tests.objects.pages.automation_practice_my_account_page import AutomationPraticeMyAccountPage
 from tests.objects.pages.automation_practice_page import AutomationPracticePage
 from tests.commons.pages.automation_practice_my_account import Ids as automation_my_account_ids
 from tests.commons.pages.automation_practice_my_account import Xpath as automation_my_account_xpath
 from tests.commons.pages.automation_practice_create_an_account import Ids as automation_create_an_account_id, \
     dropdown_years, dropdown_day, dropdown_months, state_selector, country_selector
+from tests.commons.pages.automation_practice_find_my_account import Ids as automation_practice_find_my_account
+
 
 
 class TestAutomationPractice(InitializeWebDriver):
@@ -54,7 +58,7 @@ class TestAutomationPractice(InitializeWebDriver):
         logging.warning("Enter your email address in 'Create an account' section.")
         # page.enter_email_and_create_account()
 
-        self.find_input_send_keys(locator=automation_my_account_ids.INPUT_EMAIL_ADDRESS, input_keys="rzuzia_1453@wp.pl")
+        self.find_input_send_keys(locator=automation_my_account_ids.INPUT_EMAIL_ADDRESS, input_keys=Email.generated_email)
 
         logging.warning("Click on Create an Account button.")
         button_create_an_account = self.driver.find_element(By.XPATH, automation_my_account_xpath.BUTTON_CREATE_AN_ACCOUNT)
@@ -71,7 +75,7 @@ class TestAutomationPractice(InitializeWebDriver):
 
         self.find_input_send_keys(locator=automation_create_an_account_id.LAST_NAME_INPUT_ID, input_keys="Blanka")
 
-        self.find_input_send_keys(locator=automation_create_an_account_id.INPUT_EMAIL_ID, input_keys="rzuzia_1453@wp.pl")
+        self.find_input_send_keys(locator=automation_create_an_account_id.INPUT_EMAIL_ID, input_keys=Email.generated_email)
 
         self.find_input_send_keys(locator=automation_create_an_account_id.INPUT_PASSWORD_ID, input_keys="fortuna217")
 
@@ -103,13 +107,18 @@ class TestAutomationPractice(InitializeWebDriver):
 
         self.find_input_send_keys(locator=automation_create_an_account_id.MOBILE_PHONE_INPUT_ID, input_keys="123456789")
 
-        self.find_input_send_keys(locator=automation_create_an_account_id.ADDRRESS_EMAI_INPU, input_keys="rzuzia_1453@wp.pl")
-
+        self.find_input_send_keys(locator=automation_create_an_account_id.ADDRRESS_EMAI_INPU, input_keys=Email.generated_email)
 
         logging.warning("Click on Register button.")
         self.find_and_click(locator=automation_create_an_account_id.REGISTER_BUTTON)
 
         logging.warning("Validate that user is created.")
+        writing_my_account = self.driver.find_element(By.ID, automation_practice_find_my_account.PAGE_MY_ACCOUNT)
+        writing_my_account.click()
+        page = AutomationPraticeFindMyAccount(driver=self.driver)
+        expected_title = page.title
+        title = self.driver.title
+        assert expected_title == title, f"Expected title: {expected_title} is different than current title: {title}."
 
 
         sleep(5)
