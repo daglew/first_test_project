@@ -69,7 +69,7 @@ class TestAutomationPractice(InitializeWebDriver):
         assert expected_title == title, f"Expected title: {expected_title} is different than current title: {title}."
 
         logging.warning("Enter your Personal Information, Address and Contact info.")
-        self.find_and_click(locator=automation_create_an_account_id.RADIO_BUTTON_PERSONAL_INF)
+        self.find_and_click(locator=automation_create_an_account_id.TITLE_MRS_ID)
 
         self.find_input_send_keys(locator=automation_create_an_account_id.FIRST_NAME_INPUT_ID, input_keys="Kazia")
 
@@ -108,6 +108,77 @@ class TestAutomationPractice(InitializeWebDriver):
         self.find_input_send_keys(locator=automation_create_an_account_id.MOBILE_PHONE_INPUT_ID, input_keys="123456789")
 
         self.find_input_send_keys(locator=automation_create_an_account_id.ADDRRESS_EMAI_INPU, input_keys=Email.generated_email)
+
+        logging.warning("Click on Register button.")
+        self.find_and_click(locator=automation_create_an_account_id.REGISTER_BUTTON)
+
+    def fulfill_formula(self, title, first_name: str, last_name: str, email, password: str, number_day: int,
+                        number_months: int, number_years: int, address: str, city: str, state: str, zip_code: str,
+                        information: str):
+        if title.lower() == "mrs":
+            self.find_and_click(locator=automation_create_an_account_id.TITLE_MRS_ID)
+        else:
+            self.find_and_click(locator=automation_create_an_account_id.TITLE_MR_ID)
+
+        self.find_input_send_keys(locator=automation_create_an_account_id.FIRST_NAME_INPUT_ID, input_keys=first_name.capitalize())
+
+        self.find_input_send_keys(locator=automation_create_an_account_id.LAST_NAME_INPUT_ID, input_keys=last_name.capitalize())
+
+        self.find_input_send_keys(locator=automation_create_an_account_id.INPUT_EMAIL_ID, input_keys=email.generated_email)
+
+        self.find_input_send_keys(locator=automation_create_an_account_id.INPUT_PASSWORD_ID, input_keys=password)
+
+        if 1 <= number_day <= 31:
+            self.find_and_click(locator=dropdown_day(value=number_day))
+        else:
+            raise Exception(f"Number day: {number_day} is not between 1-31.")
+
+        if 1 <= number_months <= 12:
+            self.find_and_click(locator=dropdown_months(value=number_months))
+        else:
+            raise Exception(f"Number month: {number_months} is not between 1-12.")
+
+        if 1900 <= number_years <= 2022:
+            self.find_and_click(locator=dropdown_years(value=number_years))
+
+        else:
+            raise Exception(f"Number years: {number_years} is not between 1900-2022.")
+
+        self.find_and_click(locator=automation_create_an_account_id.CHECKBOX_NEWSLETTER)
+
+        self.find_and_click(locator=automation_create_an_account_id.CHECKBOX_RECEIVE_SPECIAL_OFFERTS)
+
+        self.find_input_send_keys(locator=automation_create_an_account_id.FIRST_NAME_INPUT_ID_2, input_keys=first_name.capitalize())
+
+        self.find_input_send_keys(locator=automation_create_an_account_id.LAST_NAME_INPUT_ID_2, input_keys=last_name.capitalize())
+
+        self.find_input_send_keys(locator=automation_create_an_account_id.ADDRESS_INPUT, input_keys=address.capitalize())
+
+        self.find_input_send_keys(locator=automation_create_an_account_id.CITY_INPUT, input_keys=city.capitalize())
+
+        self.find_and_click(locator=state_selector(value=state))
+
+        if len(zip_code) == 5:
+            self.find_input_send_keys(locator=automation_create_an_account_id.ZIP_CODE_INPUT, input_keys=zip_code)
+        else:
+            raise Exception(f"Zip code: {zip_code} is not equal 5 digits.")
+            raise Exception(f"Zip code: {zip_code} is not equal 5 digits.")
+            raise Exception(f"Zip code: {zip_code} is not equal 5 digits.")
+
+
+
+
+        self.find_and_click(locator=automation_create_an_account_id.COUNTRY_SELECTOR_ID)
+
+        self.find_input_send_keys(locator=automation_create_an_account_id.ADDITIONAL_INFORMATION_ID, input_keys=information)
+
+        self.find_and_click(locator=country_selector(country="United States"))
+
+        self.find_input_send_keys(locator=automation_create_an_account_id.MOBILE_PHONE_INPUT_ID,
+                                      input_keys="123456789")
+
+        self.find_input_send_keys(locator=automation_create_an_account_id.ADDRRESS_EMAI_INPU,
+                                      input_keys=Email.generated_email)
 
         logging.warning("Click on Register button.")
         self.find_and_click(locator=automation_create_an_account_id.REGISTER_BUTTON)

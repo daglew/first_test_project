@@ -5,7 +5,8 @@ class Xpath:
 
 
 class Ids:
-    RADIO_BUTTON_PERSONAL_INF = "id_gender2"
+    TITLE_MRS_ID = "id_gender2"
+    TITLE_MR_ID = "id_gender"
     FIRST_NAME_INPUT_ID = "customer_firstname"
     LAST_NAME_INPUT_ID = "customer_lastname"
     INPUT_EMAIL_ID = "email"
@@ -24,6 +25,7 @@ class Ids:
     MOBILE_PHONE_INPUT_ID = "phone_mobile"
     ADDRRESS_EMAI_INPU = "alias"
     COUNTRY_SELECTOR_ID = "uniform-id_country"
+    ADDITIONAL_INFORMATION_ID = "other"
     REGISTER_BUTTON = "submitAccount"
 
 
