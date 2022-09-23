@@ -114,7 +114,7 @@ class TestAutomationPractice(InitializeWebDriver):
 
     def fulfill_formula(self, title, first_name: str, last_name: str, email, password: str, number_day: int,
                         number_months: int, number_years: int, address: str, city: str, state: str, zip_code: str,
-                        information: str):
+                        information: str, selector_country: str, mobile_phone: str, ):
         if title.lower() == "mrs":
             self.find_and_click(locator=automation_create_an_account_id.TITLE_MRS_ID)
         else:
@@ -162,20 +162,21 @@ class TestAutomationPractice(InitializeWebDriver):
             self.find_input_send_keys(locator=automation_create_an_account_id.ZIP_CODE_INPUT, input_keys=zip_code)
         else:
             raise Exception(f"Zip code: {zip_code} is not equal 5 digits.")
-            raise Exception(f"Zip code: {zip_code} is not equal 5 digits.")
-            raise Exception(f"Zip code: {zip_code} is not equal 5 digits.")
-
-
-
 
         self.find_and_click(locator=automation_create_an_account_id.COUNTRY_SELECTOR_ID)
 
         self.find_input_send_keys(locator=automation_create_an_account_id.ADDITIONAL_INFORMATION_ID, input_keys=information)
 
-        self.find_and_click(locator=country_selector(country="United States"))
+        if selector_country == "United States":
+            self.find_and_click(locator=country_selector(country=selector_country))
+        else:
+            raise Exception(f"Country: {selector_country} is not equal 'United States'.")
 
-        self.find_input_send_keys(locator=automation_create_an_account_id.MOBILE_PHONE_INPUT_ID,
-                                      input_keys="123456789")
+        if len(mobile_phone) == 9:
+            self.find_input_send_keys(locator=automation_create_an_account_id.MOBILE_PHONE_INPUT_ID,
+                                      input_keys=mobile_phone)
+        else:
+            raise Exception(f"Mobile phone: {mobile_phone} is not equal 9 digits.")
 
         self.find_input_send_keys(locator=automation_create_an_account_id.ADDRRESS_EMAI_INPU,
                                       input_keys=Email.generated_email)
