@@ -22,6 +22,7 @@ class Ids:
     CITY_INPUT = "city"
     ZIP_CODE_INPUT = "postcode"
     STATE_SELECTOR = "uniform-id_state"
+    HOME_PHONE_NUMBER = "phone"
     MOBILE_PHONE_INPUT_ID = "phone_mobile"
     ADDRRESS_EMAI_INPU = "alias"
     COUNTRY_SELECTOR_ID = "uniform-id_country"

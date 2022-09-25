@@ -17,8 +17,7 @@ class AutomationPracticePage:
             f"Expected title: {self.title} is different than current title: {title}."
 
     def click_sign_in_button(self):
-        sign_in_button = self.driver.find_element(By.XPATH, automation_xpaths.SIGN_IN_BUTTON)
-        sign_in_button.click()
+        self.find_and_click(automation_xpaths.SIGN_IN_BUTTON)
         page = AutomationPraticeMyAccountPage(self.driver)
         expected_title = page.title
         current_title = self.driver.title
@@ -26,4 +25,18 @@ class AutomationPracticePage:
             f"Expected_title: {expected_title} is not equal to current_title: {current_title}."
         return page
 
+    def find_and_click(self, locator: str):
+        if locator.startswith("//"):
+            element = self.driver.find_element(By.XPATH, locator)
+            element.click()
+        else:
+            element = self.driver.find_element(By.ID, locator)
+            element.click()
+        return element
+
+    def find_input_send_keys(self, locator: str, input_keys: str) -> object:
+        element = self.find_and_click(locator=locator)
+        element.clear()
+        element.send_keys(input_keys)
+        return element
 

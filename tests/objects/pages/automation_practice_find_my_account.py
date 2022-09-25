@@ -16,15 +16,16 @@ class AutomationPraticeFindMyAccount:
 
     def find_and_click(self, locator: str):
         if locator.startswith("//"):
-            a = self.driver.find_element(By.XPATH, locator)
-            a.click()
+            element = self.driver.find_element(By.XPATH, locator)
+            element.click()
         else:
-            a = self.driver.find_element(By.ID, locator)
-            a.click()
-        return a
+            element = self.driver.find_element(By.ID, locator)
+            element.click()
+        return element
 
-    def find_input_send_keys(self, locator: str, input_keys: str):
-        a = self.find_and_click(locator=locator)
-        a.clear()
-        a.sendd_keys(input_keys)
+    def find_input_send_keys(self, locator: str, input_keys: str) -> object:
+        element = self.find_and_click(locator=locator)
+        element.clear()
+        element.send_keys(input_keys)
+        return element
 
