@@ -34,9 +34,11 @@ class TestAutomationPractice(InitializeWebDriver):
         page = page.click_create_An_account_button()
 
         logging.warning("Enter your Personal Information, Address and Contact info.")
+        name = "Kasia"
+        last_name = "Basia"
         page.fulfill_formula(title="mrs",
-                             first_name="Kasia",
-                             last_name="Basia",
+                             first_name=name,
+                             last_name=last_name,
                              email=Email.generated_email,
                              password="olga56",
                              number_day=2,
@@ -56,5 +58,11 @@ class TestAutomationPractice(InitializeWebDriver):
 
         logging.warning("Validate that user is created.")
 
+        xpath = f"//span[.='{name} {last_name}']"
+        element = page.find_element(locator=xpath)
+        assert element, f"Element:{element} is visible."
+        assert element.text == f"{name} {last_name}", f"Element:{element.text} is visible."
 
-        print()
+        # wrong_xpath = f"//span[.='{name} {last_name}+++++']"
+        # wrong_element = page.find_element(locator=wrong_xpath)
+        # assert wrong_element, f"Element:{wrong_element} is not visible."

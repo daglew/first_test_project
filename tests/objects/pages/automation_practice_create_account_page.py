@@ -18,6 +18,13 @@ class AutomationPraticeCreateAccount:
         title = self.driver.title
         assert self.title == title, f"Expected title: {self.title} is different than current title: {title}."
 
+    def find_element(self, locator: str):
+        if locator.startswith("//"):
+            element = self.driver.find_element(By.XPATH, locator)
+        else:
+            element = self.driver.find_element(By.ID, locator)
+        return element
+
     def find_and_click(self, locator: str):
         if locator.startswith("//"):
             element = self.driver.find_element(By.XPATH, locator)
