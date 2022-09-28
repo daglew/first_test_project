@@ -2,6 +2,7 @@ class Xpath:
     DROPDOWN_YEARS = "//select[@id='years']/option[@value='2003']"
     COUNTRY_SELECTOR = "//select[@id='id_country']/option[@value='21']"
     REGISTER_INPUT_XPATH = "//button[@id='submitAccount']/span"
+    SIGN_OUT_BUTTON = "//a[@title='Log me out']"
 
 
 class Ids:

@@ -1,10 +1,11 @@
 from selenium.webdriver.common.by import By
 
 from tests.commons.emails import Email
-from tests.commons.pages.automation_practice_my_account import Ids as automation_create_an_account_id
 from tests.commons.pages.automation_practice_create_an_account import Ids as automation_create_an_account_id, \
     dropdown_years, dropdown_day, dropdown_months, state_selector, country_selector
+from tests.commons.pages.automation_practice_create_an_account import Xpath as automation_create_an_account_xpath
 from tests.objects.pages.automation_practice_find_my_account import AutomationPraticeFindMyAccount
+from tests.objects.pages.automation_practice_my_account_page import AutomationPraticeMyAccountPage
 
 
 class AutomationPraticeCreateAccount:
@@ -114,7 +115,7 @@ class AutomationPraticeCreateAccount:
             raise Exception(f"Mobile phone: {mobile_phone} is not equal 9 digits.")
 
         self.find_input_send_keys(locator=automation_create_an_account_id.ADDRRESS_EMAI_INPU,
-                                      input_keys=Email.generated_email)
+                                  input_keys=Email.generated_email)
 
     def click_register_button(self):
         self.find_and_click(locator=automation_create_an_account_id.REGISTER_BUTTON)
@@ -123,3 +124,8 @@ class AutomationPraticeCreateAccount:
         title = self.driver.title
         assert expected_title == title, f"Expected title: {expected_title} is different than current title: {title}."
         return page
+
+    def click_sign_out_button(self):
+        self.find_and_click(locator=automation_create_an_account_xpath.SIGN_OUT_BUTTON)
+        page = AutomationPraticeMyAccountPage(driver=self.driver)
+        expected_title = page.title

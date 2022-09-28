@@ -131,6 +131,7 @@ class TestAutomationPractice(InitializeWebDriver):
                          sign_up_newsletter=True)
 
         logging.warning("Log out user.")
+
         logging.warning("Open the page again http://automationpractice.com/index.php?controller=authentication&back=my-account")
         logging.warning("Enter your email address in 'Create an account' section.")
         logging.warning("Click on Create an Account button.")
