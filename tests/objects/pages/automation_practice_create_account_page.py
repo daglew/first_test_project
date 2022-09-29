@@ -5,7 +5,6 @@ from tests.commons.pages.automation_practice_create_an_account import Ids as aut
     dropdown_years, dropdown_day, dropdown_months, state_selector, country_selector
 from tests.commons.pages.automation_practice_create_an_account import Xpath as automation_create_an_account_xpath
 from tests.objects.pages.automation_practice_find_my_account import AutomationPraticeFindMyAccount
-from tests.objects.pages.automation_practice_my_account_page import AutomationPraticeMyAccountPage
 
 
 class AutomationPraticeCreateAccount:
@@ -127,5 +126,6 @@ class AutomationPraticeCreateAccount:
 
     def click_sign_out_button(self):
         self.find_and_click(locator=automation_create_an_account_xpath.SIGN_OUT_BUTTON)
-        page = AutomationPraticeMyAccountPage(driver=self.driver)
-        expected_title = page.title
+        pa
+
+

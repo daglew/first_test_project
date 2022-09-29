@@ -29,3 +29,10 @@ class AutomationPraticeFindMyAccount:
         element.send_keys(input_keys)
         return element
 
+    def find_element(self, locator: str):
+        if locator.startswith("//"):
+            element = self.driver.find_element(By.XPATH, locator)
+        else:
+            element = self.driver.find_element(By.ID, locator)
+        return element
+

@@ -11,6 +11,7 @@ Steps to Automate:
 7. Validate that user is created.
 """
 import logging
+import uuid
 
 from tests.commons.emails import Email
 from tests.objects.initialize_webdriver import InitializeWebDriver
@@ -71,9 +72,9 @@ class TestAutomationPractice(InitializeWebDriver):
                          last_name="Kasia",
                          email=Email.generated_email,
                          password="xyzbgj45",
-                         number_day="4",
-                         number_months="7",
-                         number_years="2002",
+                         number_day=4,
+                         number_months=7,
+                         number_years=2002,
                          address="zielona",
                          city= "gdansk",
                          state="alaska",
@@ -111,14 +112,18 @@ class TestAutomationPractice(InitializeWebDriver):
         logging.warning("Click on Create an Account button.")
         logging.warning("Enter your Personal Information, Address and Contact info.")
         logging.warning("Validate that user is created.")
+
+        uniqe_id = str(uuid.uuid4())
+        generated_email = f"kazia{uniqe_id[:5]}@gmail.com"
+
         self.create_user(title="Mrs",
                          name="Basia",
                          last_name="Kasia",
-                         email=Email.generated_email,
+                         email=generated_email,
                          password="xyzbgj45",
-                         number_day="4",
-                         number_months="7",
-                         number_years="2002",
+                         number_day=4,
+                         number_months=7,
+                         number_years=2002,
                          address="zielona",
                          city="gdansk",
                          state="alaska",
@@ -131,6 +136,8 @@ class TestAutomationPractice(InitializeWebDriver):
                          sign_up_newsletter=True)
 
         logging.warning("Log out user.")
+        print()
+
 
         logging.warning("Open the page again http://automationpractice.com/index.php?controller=authentication&back=my-account")
         logging.warning("Enter your email address in 'Create an account' section.")
