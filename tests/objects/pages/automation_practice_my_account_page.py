@@ -1,6 +1,8 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
-from tests.commons.emails import Email
+
 from tests.commons.pages.automation_practice_my_account import Ids as automation_my_account_ids
 from tests.commons.pages.automation_practice_my_account import Xpath as automation_my_account_xpath
 from tests.objects.pages.automation_practice_create_account_page import AutomationPraticeCreateAccount
@@ -32,10 +34,10 @@ class AutomationPraticeMyAccountPage:
         element.send_keys(input_keys)
         return element
 
-    def enter_email_and_create_account(self):
-        self.find_input_send_keys(locator=automation_my_account_ids.INPUT_EMAIL_ADDRESS, input_keys=Email.generated_email)
+    def enter_email(self, email):
+        self.find_input_send_keys(locator=automation_my_account_ids.INPUT_EMAIL_ADDRESS, input_keys=email)
 
-    def click_create_An_account_button(self):
+    def click_create_an_account_button(self):
         self.find_and_click(locator=automation_my_account_xpath.BUTTON_CREATE_AN_ACCOUNT)
         page = AutomationPraticeCreateAccount(driver=self.driver)
         expected_title = page.title
@@ -43,12 +45,25 @@ class AutomationPraticeMyAccountPage:
         assert expected_title == title, f"Expected title: {expected_title} is different than current title: {title}."
         return page
 
+    def find_element(self, locator: str):
+        if locator.startswith("//"):
+            element = self.driver.find_element(By.XPATH, locator)
+        else:
+            element = self.driver.find_element(By.ID, locator)
+        return element
 
-    # def enter_email_and_create_account(self):
-    #     input_email_address_field = self.driver.find_element(By.ID, automation_my_account_ids.INPUT_EMAIL_ADDRESS)
-    #     input_email_address_field.click()
-    #     input_email_address_field.clear()
-    #     input_email_address_field.
+    def wait_for_element_visible(self, locator):
+        wait = WebDriverWait(self.driver, timeout=15)
+        if locator.startswith("//"):
+            wait.until(EC.visibility_of_element_located((By.XPATH, locator)))
+        else:
+            wait.until(EC.visibility_of_element_located((By.ID, locator)))
 
-    # button_create_an_account = self.driver.find_element(By.XPATH, automation_my_account_xpath.BUTTON_CREATE_AN_ACCOUNT)
-    # button_create_an_account.click()
+    def assert_error_visible(self):
+        self.wait_for_element_visible(locator=automation_my_account_ids.ALERT_ERROR)
+        element = self.find_element(locator=automation_my_account_ids.ALERT_ERROR)
+        text = element.text
+        expected_error_text = "An account using this email address has already been registered. Please enter " \
+                              "a valid password or request a new one."
+        assert expected_error_text == text, f"Expected error text: {expected_error_text} is not equal to" \
+                                            f"current error text: {text}."

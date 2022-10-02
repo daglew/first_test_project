@@ -15,7 +15,10 @@ import uuid
 
 from tests.commons.emails import Email
 from tests.objects.initialize_webdriver import InitializeWebDriver
+from tests.objects.pages.automation_practice_my_account_page import AutomationPraticeMyAccountPage
 from tests.objects.pages.automation_practice_page import AutomationPracticePage
+from tests.commons.pages.automation_practice_my_account import Xpath as automation_my_account_xpath
+
 
 
 class TestAutomationPractice(InitializeWebDriver):
@@ -26,8 +29,8 @@ class TestAutomationPractice(InitializeWebDriver):
         page = AutomationPracticePage(self.driver)
         page.open_page()
         page = page.click_sign_in_button()
-        page.enter_email_and_create_account()
-        page = page.click_create_An_account_button()
+        page.enter_email(email=email)
+        page = page.click_create_an_account_button()
         name = name
         last_name = last_name
         page.fulfill_formula(title=title,
@@ -49,16 +52,8 @@ class TestAutomationPractice(InitializeWebDriver):
                              receive_special_offers=receive_special_offers,
                              sign_up_newsletter=sign_up_newsletter)
         page = page.click_register_button()
-        xpath = f"//span[.='{name} {last_name}']"
-        element = page.find_element(locator=xpath)
-        assert element, f"Element:{element} is visible."
-        assert element.text == f"{name} {last_name}", f"Element:{element.text} is visible."
+        page.assert_user_log_in(name=name, last_name=last_name)
         return page
-
-        # wrong_xpath = f"//span[.='{name} {last_name}+++++']"
-        # wrong_element = page.find_element(locator=wrong_xpath)
-        # assert wrong_element, f"Element:{wrong_element} is not visible."
-
 
     def test_create_account(self):
         logging.warning("Open this url  http://automationpractice.com/index.php and maximalize window, check title")
@@ -116,32 +111,40 @@ class TestAutomationPractice(InitializeWebDriver):
         uniqe_id = str(uuid.uuid4())
         generated_email = f"kazia{uniqe_id[:5]}@gmail.com"
 
-        self.create_user(title="Mrs",
-                         name="Basia",
-                         last_name="Kasia",
-                         email=generated_email,
-                         password="xyzbgj45",
-                         number_day=4,
-                         number_months=7,
-                         number_years=2002,
-                         address="zielona",
-                         city="gdansk",
-                         state="alaska",
-                         zip_code="00000",
-                         information="...",
-                         home_number="89765423",
-                         selector_country="United States",
-                         mobile_phone="123456789",
-                         receive_special_offers=True,
-                         sign_up_newsletter=True)
-
+        page = self.create_user(title="Mrs",
+                                name="Basia",
+                                last_name="Kasia",
+                                email=generated_email,
+                                password="xyzbgj45",
+                                number_day=4,
+                                number_months=7,
+                                number_years=2002,
+                                address="zielona",
+                                city="gdansk",
+                                state="alaska",
+                                zip_code="00000",
+                                information="...",
+                                home_number="89765423",
+                                selector_country="United States",
+                                mobile_phone="123456789",
+                                receive_special_offers=True,
+                                sign_up_newsletter=True)
         logging.warning("Log out user.")
-        print()
-
+        page.click_sign_out()
 
         logging.warning("Open the page again http://automationpractice.com/index.php?controller=authentication&back=my-account")
+        page = AutomationPraticeMyAccountPage(self.driver)
+        page.open_page()
+
         logging.warning("Enter your email address in 'Create an account' section.")
+        page.enter_email(email=generated_email)
+
         logging.warning("Click on Create an Account button.")
+        page.find_and_click(locator=automation_my_account_xpath.BUTTON_CREATE_AN_ACCOUNT)
+
         logging.warning("Check if error is visible.")
+        page.assert_error_visible()
+
+
 
 

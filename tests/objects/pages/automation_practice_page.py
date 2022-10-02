@@ -19,10 +19,7 @@ class AutomationPracticePage:
     def click_sign_in_button(self):
         self.find_and_click(automation_xpaths.SIGN_IN_BUTTON)
         page = AutomationPraticeMyAccountPage(self.driver)
-        expected_title = page.title
-        current_title = self.driver.title
-        assert expected_title == current_title, \
-            f"Expected_title: {expected_title} is not equal to current_title: {current_title}."
+        page.open_page()
         return page
 
     def find_and_click(self, locator: str):

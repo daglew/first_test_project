@@ -119,13 +119,5 @@ class AutomationPraticeCreateAccount:
     def click_register_button(self):
         self.find_and_click(locator=automation_create_an_account_id.REGISTER_BUTTON)
         page = AutomationPraticeFindMyAccount(driver=self.driver)
-        expected_title = page.title
-        title = self.driver.title
-        assert expected_title == title, f"Expected title: {expected_title} is different than current title: {title}."
+        page.open_page()
         return page
-
-    def click_sign_out_button(self):
-        self.find_and_click(locator=automation_create_an_account_xpath.SIGN_OUT_BUTTON)
-        pa
-
-
