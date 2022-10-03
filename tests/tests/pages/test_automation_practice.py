@@ -15,9 +15,11 @@ import uuid
 
 from tests.commons.emails import Email
 from tests.objects.initialize_webdriver import InitializeWebDriver
+from tests.objects.pages.automation_practice_controller_address_page import AutomationPraticeControllerAddressPage
 from tests.objects.pages.automation_practice_my_account_page import AutomationPraticeMyAccountPage
 from tests.objects.pages.automation_practice_page import AutomationPracticePage
 from tests.commons.pages.automation_practice_my_account import Xpath as automation_my_account_xpath
+from tests.commons.pages.automation_practice_controller_address_account import Ids as automation_practice_controlles_address_ids
 
 
 
@@ -146,5 +148,63 @@ class TestAutomationPractice(InitializeWebDriver):
         page.assert_error_visible()
 
 
+    """
+    Steps to Automate:
+    1. Open this url  http://automationpractice.com/index.php and maximalize window, check title
+    2. Click on sign in link.
+    3. Enter your email address in 'Create an account' section.
+    4. Click on Create an Account button.
+    5. Enter your Personal Information, Address and Contact info.
+    6. Click on Register button.
+    7. Validate that user is created.
+    8. Open my personal information.
+    9. Check if user data is correct.
+    """
+
+    def test_personal_information_correct(self):
+        logging.warning("Open this url  http://automationpractice.com/index.php and maximalize window, check title")
+        logging.warning("Click on sign in link.")
+        logging.warning("Enter your email address in 'Create an account' section.")
+        logging.warning("Click on Create an Account button.")
+        logging.warning("Enter your Personal Information, Address and Contact info.")
+        logging.warning("Validate that user is created.")
+
+        uniqe_id = str(uuid.uuid4())
+        generated_email = f"kazia{uniqe_id[:5]}@gmail.com"
+        name = "Basia"
+        page = self.create_user(title="Mrs",
+                                name=name,
+                                last_name="Kasia",
+                                email=generated_email,
+                                password="xyzbgj45",
+                                number_day=4,
+                                number_months=7,
+                                number_years=2002,
+                                address="zielona",
+                                city="gdansk",
+                                state="alaska",
+                                zip_code="00000",
+                                information="...",
+                                home_number="89765423",
+                                selector_country="United States",
+                                mobile_phone="123456789",
+                                receive_special_offers=True,
+                                sign_up_newsletter=True)
+
+        logging.warning("Open my personal information.")
+        page.click_my_personal_information()
+        page = AutomationPraticeControllerAddressPage(self.driver)
+        page.open_page()
+
+        logging.warning("Check if user data is correct.")
+        personal_name_text = page.find_and_take_attribute(locator=automation_practice_controlles_address_ids.FIRST_NAME)
+        assert personal_name_text == name, f"Expected personal name text: {name} is not equal to current personal " \
+                                           f"name text: {personal_name_text}."
 
 
+print()
+
+
+
+
+#  MY_PERSONAL_INFORMATION_BUTTON
