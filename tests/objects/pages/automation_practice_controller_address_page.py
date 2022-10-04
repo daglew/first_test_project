@@ -21,12 +21,19 @@ class AutomationPraticeControllerAddressPage:
             element.click()
         return element
 
-    def find_and_take_attribute(self, locator: str):
+    def find_and_take_attribute(self, locator: str, attribute: str):
         if locator.startswith("//"):
             element = self.driver.find_element(By.XPATH, locator)
-            element_attribute_value = element.get_attribute("value")
+            element_attribute_value = element.get_attribute(attribute)
         else:
             element = self.driver.find_element(By.ID, locator)
-            element_attribute_value = element.get_attribute("value")
+            element_attribute_value = element.get_attribute(attribute)
         return element_attribute_value
+
+    def find_element(self, locator: str):
+        if locator.startswith("//"):
+            element = self.driver.find_element(By.XPATH, locator)
+        else:
+            element = self.driver.find_element(By.ID, locator)
+        return element
 

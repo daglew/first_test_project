@@ -19,8 +19,8 @@ from tests.objects.pages.automation_practice_controller_address_page import Auto
 from tests.objects.pages.automation_practice_my_account_page import AutomationPraticeMyAccountPage
 from tests.objects.pages.automation_practice_page import AutomationPracticePage
 from tests.commons.pages.automation_practice_my_account import Xpath as automation_my_account_xpath
-from tests.commons.pages.automation_practice_controller_address_account import Ids as automation_practice_controlles_address_ids
-
+from tests.commons.pages.automation_practice_controller_address_account import \
+    Ids as automation_practice_controlles_address_ids, day_xpath
 
 
 class TestAutomationPractice(InitializeWebDriver):
@@ -82,8 +82,6 @@ class TestAutomationPractice(InitializeWebDriver):
                          mobile_phone="123456789",
                          receive_special_offers=True,
                          sign_up_newsletter=True)
-        print()
-
 
     """
     Steps to Automate:
@@ -172,12 +170,13 @@ class TestAutomationPractice(InitializeWebDriver):
         uniqe_id = str(uuid.uuid4())
         generated_email = f"kazia{uniqe_id[:5]}@gmail.com"
         name = "Basia"
+        day = 4
         page = self.create_user(title="Mrs",
                                 name=name,
                                 last_name="Kasia",
                                 email=generated_email,
                                 password="xyzbgj45",
-                                number_day=4,
+                                number_day=day,
                                 number_months=7,
                                 number_years=2002,
                                 address="zielona",
@@ -197,14 +196,14 @@ class TestAutomationPractice(InitializeWebDriver):
         page.open_page()
 
         logging.warning("Check if user data is correct.")
-        personal_name_text = page.find_and_take_attribute(locator=automation_practice_controlles_address_ids.FIRST_NAME)
-        assert personal_name_text == name, f"Expected personal name text: {name} is not equal to current personal " \
-                                           f"name text: {personal_name_text}."
+        personal_name_attribute = page.find_and_take_attribute(locator=automation_practice_controlles_address_ids.FIRST_NAME, attribute="value")
+        assert personal_name_attribute == name, f"Expected personal name attribute: {name} is not equal to current personal"\
+                                                f"name attribute: {personal_name_attribute}."
 
-
+        personal_day_text = page.find_element(locator=day_xpath(day=day)).text
+        assert int(personal_day_text) == day, f"Expected day: {day} is not equal to current personal day: {personal_day_text}."
 print()
 
 
 
 
-#  MY_PERSONAL_INFORMATION_BUTTON
