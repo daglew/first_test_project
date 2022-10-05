@@ -20,7 +20,7 @@ from tests.objects.pages.automation_practice_my_account_page import AutomationPr
 from tests.objects.pages.automation_practice_page import AutomationPracticePage
 from tests.commons.pages.automation_practice_my_account import Xpath as automation_my_account_xpath
 from tests.commons.pages.automation_practice_controller_address_account import \
-    Ids as automation_practice_controlles_address_ids, day_xpath
+    Ids as automation_practice_controlles_address_ids, day_xpath, month_xpath, year_xpath
 
 
 class TestAutomationPractice(InitializeWebDriver):
@@ -171,14 +171,16 @@ class TestAutomationPractice(InitializeWebDriver):
         generated_email = f"kazia{uniqe_id[:5]}@gmail.com"
         name = "Basia"
         day = 4
+        month = 7
+        year = 2002
         page = self.create_user(title="Mrs",
                                 name=name,
                                 last_name="Kasia",
                                 email=generated_email,
                                 password="xyzbgj45",
                                 number_day=day,
-                                number_months=7,
-                                number_years=2002,
+                                number_months=month,
+                                number_years=year,
                                 address="zielona",
                                 city="gdansk",
                                 state="alaska",
@@ -202,8 +204,11 @@ class TestAutomationPractice(InitializeWebDriver):
 
         personal_day_text = page.find_element(locator=day_xpath(day=day)).text
         assert int(personal_day_text) == day, f"Expected day: {day} is not equal to current personal day: {personal_day_text}."
+
+        personal_month_text = page.find_element(locator=month_xpath(months=month)).text
+        assert personal_month_text.rstrip() == "July", f"Expected month: 'July' is not equal to current personal month: {personal_month_text}."
+
+        personal_year_text = page.find_element(locator=year_xpath(years=year)).text
+        assert int(personal_year_text) == year, f"Expected year: {year} is not equal to current personal year: {personal_year_text}."
 print()
-
-
-
 
