@@ -37,3 +37,9 @@ class AutomationPraticeControllerAddressPage:
             element = self.driver.find_element(By.ID, locator)
         return element
 
+    def find_input_send_keys(self, locator: str, input_keys: str) -> object:
+        element = self.find_and_click(locator=locator)
+        element.clear()
+        element.send_keys(input_keys)
+        return element
+

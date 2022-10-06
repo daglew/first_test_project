@@ -1,11 +1,12 @@
 class Xpath:
-    pass
+    SAVE_BUTTON = "//button[@name='submitIdentity']/span"
 
 
 class Ids:
     FIRST_NAME = "firstname"
     LAST_NAME = "lastname"
     EMAIL_ID = "email"
+    CURRENT_PASSWORD = "old_passwd"
 
 
 def day_xpath(day):
