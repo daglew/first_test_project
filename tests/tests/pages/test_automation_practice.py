@@ -176,7 +176,8 @@ class TestAutomationPractice(InitializeWebDriver):
         month = 7
         year = 2002
         password = "xyzbgj45"
-        page = self.create_user(title="Mrs",
+        radio_button_title = "Mrs"
+        page = self.create_user(title=radio_button_title,
                                 name=name,
                                 last_name=last_name,
                                 email=generated_email,
@@ -205,6 +206,20 @@ class TestAutomationPractice(InitializeWebDriver):
         assert personal_name_attribute == name, f"Expected personal name attribute: {name} is not equal to current personal"\
                                                 f"name attribute: {personal_name_attribute}."
 
+        elements = page.find_elements("//label[@class='top']")
+        mrs_element = None
+        for element in elements:
+            if radio_button_title in element.text:
+                mrs_element = element
+            else:
+                mrs_element = None
+
+        checked_mrs_radio_button = mrs_element.find_element_by_tag_name("span").get_attribute("class")
+        assert checked_mrs_radio_button == "checked", f"Expected result is: 'checked' button, " \
+                                                     f"current result is: {checked_mrs_radio_button}."
+
+
+
         personal_last_name_attribute = page.find_and_take_attribute(locator=automation_practice_controlles_address_ids.LAST_NAME, attribute="value")
         assert personal_last_name_attribute.rstrip() == last_name, f"Expected personal last name attribute:{last_name}" \
                                                          f"is not equal to current personal last name attribute:{personal_last_name_attribute}."
@@ -221,6 +236,9 @@ class TestAutomationPractice(InitializeWebDriver):
         page.find_input_send_keys(locator=automation_practice_controlles_address_ids.CURRENT_PASSWORD, input_keys=password)
 
         page.find_and_click(locator=automation_practice_controlles_address_xpath.SAVE_BUTTON)
+
+        elements = page.find_elements("//label[@class='top']")
+
 
 print()
 
