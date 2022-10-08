@@ -4,3 +4,4 @@ class Xpath:
 
 class Ids:
     INPUT_EMAIL_ADDRESS = "email_create"
+    ALERT_ERROR = "create_account_error"

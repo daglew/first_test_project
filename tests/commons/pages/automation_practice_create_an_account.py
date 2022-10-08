@@ -3,7 +3,6 @@ class Xpath:
     COUNTRY_SELECTOR = "//select[@id='id_country']/option[@value='21']"
     REGISTER_INPUT_XPATH = "//button[@id='submitAccount']/span"
 
-
 class Ids:
     TITLE_MRS_ID = "id_gender2"
     TITLE_MR_ID = "id_gender"

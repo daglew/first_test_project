@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 
-from tests.commons.pages.automation_practice_my_account import Ids as automation_create_an_account_id
+from tests.commons.pages.automation_practice_find_my_account import Xpath as automation_practice_find_my_account_xpath
+from tests.commons.pages.automation_practice_find_my_account import Ids as automation_practice_find_my_account_ids
 
 
 class AutomationPraticeFindMyAccount:
@@ -28,4 +29,23 @@ class AutomationPraticeFindMyAccount:
         element.clear()
         element.send_keys(input_keys)
         return element
+
+    def find_element(self, locator: str):
+        if locator.startswith("//"):
+            element = self.driver.find_element(By.XPATH, locator)
+        else:
+            element = self.driver.find_element(By.ID, locator)
+        return element
+
+    def click_sign_out(self):
+        self.find_and_click(locator=automation_practice_find_my_account_xpath.SIGN_OUT_BUTTON)
+
+    def assert_user_log_in(self, name, last_name):
+        xpath = f"//span[.='{name} {last_name}']"
+        element = self.find_element(locator=xpath)
+        assert element, f"Element:{element} is visible."
+        assert element.text == f"{name} {last_name}", f"Element:{element.text} is visible."
+
+    def click_my_personal_information(self):
+        self.find_and_click(locator=automation_practice_find_my_account_ids.MY_PERSONAL_INFORMATION_BUTTON)
 
