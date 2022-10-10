@@ -1,7 +1,10 @@
+import logging
 import uuid
 
 from tests.objects.helpers import create_user
 from tests.objects.initialize_webdriver import InitializeWebDriver
+from tests.commons.pages.automation_practice_order_history import Xpath as automation_practice_order_history_xpath
+from tests.commons.pages.automation_practice_order_history import Ids as automation_practice_order_history_ids
 
 
 class TestOrder(InitializeWebDriver):
@@ -12,8 +15,17 @@ class TestOrder(InitializeWebDriver):
     3. Check if alert warning is visible.
     """
     def test_order_history_no_item_ordered(self):
+        logging.warning("Open this url  http://automationpractice.com/index.php and maximalize window, check title")
+        logging.warning("Click on sign in link.")
+        logging.warning("Enter your email address in 'Create an account' section.")
+        logging.warning("Click on Create an Account button.")
+        logging.warning("Enter your Personal Information, Address and Contact info.")
+        logging.warning("Validate that user is created.")
+        logging.warning("Create user.")
+
         uniqe_id = str(uuid.uuid4())
         generated_email = f"kazia{uniqe_id[:5]}@gmail.com"
+        expected_warning = "You have not placed any orders."
 
         page = create_user(driver=self.driver,
                            title="Mrs",
@@ -34,9 +46,12 @@ class TestOrder(InitializeWebDriver):
                            mobile_phone="123456789",
                            receive_special_offers=True,
                            sign_up_newsletter=True)
+        logging.warning("Click Order history and details tab.")
         page.click_order_history_and_details()
-    # add logging, check page assert title
-
+        logging.warning("Check if alert warning is visible.")
+        alert_warning = page.find_element(locator=automation_practice_order_history_xpath.ALERT_WARNING).text
+        assert alert_warning == expected_warning, f"Expected warning information on the page: {expected_warning} is " \
+                                                  f"not equal to current alert waning {alert_warning} "
 
     """
     1. Create user.
@@ -54,10 +69,56 @@ class TestOrder(InitializeWebDriver):
     13. Check if new order is visible in order reference column.
     """
     def test_order_history_item_ordered(self):
-        pass
+        logging.warning("Open this url  http://automationpractice.com/index.php and maximalize window, check title")
+        logging.warning("Click on sign in link.")
+        logging.warning("Enter your email address in 'Create an account' section.")
+        logging.warning("Click on Create an Account button.")
+        logging.warning("Enter your Personal Information, Address and Contact info.")
+        logging.warning("Validate that user is created.")
+        logging.warning("Create user.")
+
+        uniqe_id = str(uuid.uuid4())
+        generated_email = f"kazia{uniqe_id[:5]}@gmail.com"
+        expected_warning = "You have not placed any orders."
+
+        page = create_user(driver=self.driver,
+                           title="Mrs",
+                           name="Basia",
+                           last_name="Kasia",
+                           email=generated_email,
+                           password="xyzbgj45",
+                           number_day=4,
+                           number_months=7,
+                           number_years=2002,
+                           address="zielona",
+                           city="gdansk",
+                           state="alaska",
+                           zip_code="00000",
+                           information="...",
+                           home_number="89765423",
+                           selector_country="United States",
+                           mobile_phone="123456789",
+                           receive_special_offers=True,
+                           sign_up_newsletter=True)
+        logging.warning("Click Order history and details tab.")
+        page.click_order_history_and_details()
+        logging.warning("Check if alert warning is visible.")
+        alert_warning = page.find_element(locator=automation_practice_order_history_xpath.ALERT_WARNING).text
+        assert alert_warning == expected_warning, f"Expected warning information on the page: {expected_warning} is " \
+                                                  f"not equal to current alert waning {alert_warning} "
+
+        logging.warning("Find Faded Short Sleeve T-shirts.")
+        input_element = page.find_and_click(locator=automation_practice_order_history_ids.INPUT_SEARCH)
+        input_element.clear()
+        input_element.send_keys("Faded Short Sleeve T-shirts")
+
+        logging.warning("Click Add to cart.")
+
+
+SEARCH_BUTTON = "//button[@name='submit_search']"
+
 
     """
-    
     1. Create user.
     2. Click Order history and details tab.
     3. Check if alert warning is visible.

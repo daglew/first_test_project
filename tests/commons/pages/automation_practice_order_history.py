@@ -1,6 +1,8 @@
 class Xpath:
-    pass
+   ALERT_WARNING = "//p[@class='alert alert-warning']"
+   SEARCH_BUTTON = "//button[@name='submit_search']"
+
 
 
 class Ids:
-    pass
+    INPUT_SEARCH = "search_query_top"
