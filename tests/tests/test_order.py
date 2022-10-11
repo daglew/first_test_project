@@ -5,6 +5,8 @@ from tests.objects.helpers import create_user
 from tests.objects.initialize_webdriver import InitializeWebDriver
 from tests.commons.pages.automation_practice_order_history import Xpath as automation_practice_order_history_xpath
 from tests.commons.pages.automation_practice_order_history import Ids as automation_practice_order_history_ids
+from tests.commons.pages.automation_practice_order_search import Xpath as automation_practice_order_search_xpath
+from tests.objects.pages.automation_practice_order_search_page import AutomationPracticeOrderSearch
 
 
 class TestOrder(InitializeWebDriver):
@@ -100,22 +102,24 @@ class TestOrder(InitializeWebDriver):
                            mobile_phone="123456789",
                            receive_special_offers=True,
                            sign_up_newsletter=True)
+
         logging.warning("Click Order history and details tab.")
-        page.click_order_history_and_details()
+        page = page.click_order_history_and_details()
+
         logging.warning("Check if alert warning is visible.")
         alert_warning = page.find_element(locator=automation_practice_order_history_xpath.ALERT_WARNING).text
         assert alert_warning == expected_warning, f"Expected warning information on the page: {expected_warning} is " \
                                                   f"not equal to current alert waning {alert_warning} "
 
         logging.warning("Find Faded Short Sleeve T-shirts.")
-        input_element = page.find_and_click(locator=automation_practice_order_history_ids.INPUT_SEARCH)
-        input_element.clear()
-        input_element.send_keys("Faded Short Sleeve T-shirts")
+        page = AutomationPracticeOrderSearch(driver=self.driver)
+        page.find_input_send_keys(locator=automation_practice_order_history_ids.INPUT_SEARCH, input_keys="Faded Short Sleeve T-shirts")
+        page.find_and_click(locator=automation_practice_order_history_xpath.SEARCH_BUTTON)
 
         logging.warning("Click Add to cart.")
+        page.find_and_click(locator=automation_practice_order_search_xpath.ADD_TO_CART_BUTTON)
+        print()
 
-
-SEARCH_BUTTON = "//button[@name='submit_search']"
 
 
     """

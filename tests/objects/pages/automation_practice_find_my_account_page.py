@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 
 from tests.commons.pages.automation_practice_find_my_account import Xpath as automation_practice_find_my_account_xpath
+from tests.objects.pages.automation_practice_order_history_page import AutomationPracticeOrderHistoryPage
 
 
 class AutomationPraticeFindMyAccount:
@@ -50,4 +51,10 @@ class AutomationPraticeFindMyAccount:
 
     def click_order_history_and_details(self):
         self.find_and_click(locator=automation_practice_find_my_account_xpath.ORDER_HISTORY_AND_DETAILS_BUTTON)
+        page = AutomationPracticeOrderHistoryPage(driver=self.driver)
+        page.open_page()
+        return page
+
+
+
 

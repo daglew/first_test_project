@@ -3,6 +3,5 @@ class Xpath:
    SEARCH_BUTTON = "//button[@name='submit_search']"
 
 
-
 class Ids:
     INPUT_SEARCH = "search_query_top"
