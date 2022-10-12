@@ -1,6 +1,8 @@
 import logging
 import uuid
 
+from selenium.webdriver import ActionChains
+
 from tests.objects.helpers import create_user
 from tests.objects.initialize_webdriver import InitializeWebDriver
 from tests.commons.pages.automation_practice_order_history import Xpath as automation_practice_order_history_xpath
@@ -117,6 +119,7 @@ class TestOrder(InitializeWebDriver):
         page.find_and_click(locator=automation_practice_order_history_xpath.SEARCH_BUTTON)
 
         logging.warning("Click Add to cart.")
+        page.hover_element_by_mouse(locator=automation_practice_order_search_xpath.PICTURE)
         page.find_and_click(locator=automation_practice_order_search_xpath.ADD_TO_CART_BUTTON)
         print()
 

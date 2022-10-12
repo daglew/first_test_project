@@ -1,3 +1,4 @@
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 
 
@@ -26,5 +27,18 @@ class AutomationPracticeOrderSearch:
         element.clear()
         element.send_keys(input_keys)
         return element
+
+    def find_element(self, locator: str):
+        if locator.startswith("//"):
+            element = self.driver.find_element(By.XPATH, locator)
+        else:
+            element = self.driver.find_element(By.ID, locator)
+        return element
+
+    def hover_element_by_mouse(self, locator):
+        action = ActionChains(driver=self.driver)
+        element = self.find_element(locator)
+        action.move_to_element(element).perform()
+
 
 
