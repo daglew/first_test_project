@@ -1,13 +1,12 @@
 from selenium.webdriver.common.by import By
-from tests.commons.pages.automation_practice_order_history import Xpath as automation_practice_order_history_xpath
 
 
-class AutomationPracticeOrderHistoryPage:
+class AutomationPracticeOrderMyStorePage:
 
     def __init__(self, driver):
         self.driver = driver
-        self.page = "http://automationpractice.com/index.php?controller=history"
-        self.title = "Order history - My Store"
+        self.page = "http://automationpractice.com/index.php?controller=order"
+        self.title = "Order - My Store"
 
     def open_page(self):
         self.driver.get(self.page)
@@ -23,15 +22,11 @@ class AutomationPracticeOrderHistoryPage:
             element.click()
         return element
 
-    def click_search_button(self, locator):
-        self.find_and_click(locator=automation_practice_order_history_xpath.SEARCH_BUTTON)
-
     def find_element(self, locator: str):
         if locator.startswith("//"):
             element = self.driver.find_element(By.XPATH, locator)
         else:
             element = self.driver.find_element(By.ID, locator)
         return element
-
 
 
