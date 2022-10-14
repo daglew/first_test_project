@@ -1,13 +1,13 @@
 import logging
 import uuid
 
-from selenium.webdriver import ActionChains
-
 from tests.objects.helpers import create_user
 from tests.objects.initialize_webdriver import InitializeWebDriver
 from tests.commons.pages.automation_practice_order_history import Xpath as automation_practice_order_history_xpath
 from tests.commons.pages.automation_practice_order_history import Ids as automation_practice_order_history_ids
 from tests.commons.pages.automation_practice_order_search import Xpath as automation_practice_order_search_xpath
+from tests.objects.pages.automation_practice_order_my_my_store_payment_method_page import \
+    AutomationPracticeOrderMyStorePaymentMethod
 from tests.objects.pages.automation_practice_order_my_store_address_page import \
     AutomationPracticeOrderMyStoreAddressPage
 from tests.objects.pages.automation_practice_order_my_store_page import AutomationPracticeOrderMyStorePage
@@ -18,7 +18,7 @@ from tests.commons.pages.automation_practice_order_my_store import Xpath as auto
 from tests.commons.pages.automation_practice_order_my_store_address import Xpath as automation_practice_order_my_store_address_xpath
 from tests.commons.pages.automation_practice_order_my_store_shipping import Ids as automation_practice_order_my_store_shipping_ids
 from tests.commons.pages.automation_practice_order_my_store_shipping import Xpath as automation_practice_order_my_store_shipping_xpath
-
+from tests.commons.pages.automation_practice_order_my_my_store_payment_method import Xpath as automation_practice_order_my_my_store_payment_method_xpath
 
 
 class TestOrder(InitializeWebDriver):
@@ -143,13 +143,16 @@ class TestOrder(InitializeWebDriver):
         page = AutomationPracticeOrderMyStoreAddressPage(driver=self.driver)
         page.find_and_click(locator=automation_practice_order_my_store_address_xpath.PROCEED_TO_CHECKOUT_ADDRESS_BUTTON)
 
-        logging.warning("Choose and click payment method")
+        logging.warning("Choose and click payment method.")
         page = AutomationPracticeOrderMyStoreShippingPage(driver=self.driver)
         page.find_and_click(locator=automation_practice_order_my_store_shipping_ids.TEMS_OF_SERVICE_INPUT)
         page.find_and_click(locator=automation_practice_order_my_store_shipping_xpath.PROCEED_TO_CHECKOUT_SHIPPING_BUTTON)
+
+        logging.warning("Confirm order.")
+        page = AutomationPracticeOrderMyStorePaymentMethod(driver=self.driver)
+        page.payment_method(title=automation_practice_order_my_my_store_payment_method_xpath.PAY_BY_CHECK_INPUT)
+
         print()
-
-
 
     """
     1. Create user.
