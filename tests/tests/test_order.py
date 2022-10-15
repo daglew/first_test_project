@@ -13,13 +13,18 @@ from tests.objects.pages.automation_practice_order_my_store_address_page import 
 from tests.objects.pages.automation_practice_order_my_store_page import AutomationPracticeOrderMyStorePage
 from tests.objects.pages.automation_practice_order_my_store_shipping_page import \
     AutomationPracticeOrderMyStoreShippingPage
+from tests.objects.pages.automation_practice_order_payment_back_to_orders_page import \
+    AutomationPracticeOrderPaymentBackToOrders
+from tests.objects.pages.automation_practice_order_payment_confirm_my_order_page import \
+    AutomationPracticeOrderPaymentConfirmMyOrder
 from tests.objects.pages.automation_practice_order_search_page import AutomationPracticeOrderSearch
 from tests.commons.pages.automation_practice_order_my_store import Xpath as automation_practice_order_my_store_xpath
 from tests.commons.pages.automation_practice_order_my_store_address import Xpath as automation_practice_order_my_store_address_xpath
 from tests.commons.pages.automation_practice_order_my_store_shipping import Ids as automation_practice_order_my_store_shipping_ids
 from tests.commons.pages.automation_practice_order_my_store_shipping import Xpath as automation_practice_order_my_store_shipping_xpath
 from tests.commons.pages.automation_practice_order_my_my_store_payment_method import Xpath as automation_practice_order_my_my_store_payment_method_xpath
-
+from tests.commons.pages.automation_practice_order_payment_confirm_my_order import Xpath as automation_practice_order_payment_confirm_my_order_xpath
+from tests.commons.pages.automation_practice_order_payment_back_to_orders import Xpath as automation_practice_order_payment_back_to_orders_xpath
 
 class TestOrder(InitializeWebDriver):
 
@@ -150,9 +155,21 @@ class TestOrder(InitializeWebDriver):
 
         logging.warning("Confirm order.")
         page = AutomationPracticeOrderMyStorePaymentMethod(driver=self.driver)
-        page.payment_method(title=automation_practice_order_my_my_store_payment_method_xpath.PAY_BY_CHECK_INPUT)
+        page.open_page(not_getting_page=True)
+        page.find_and_click(locator=automation_practice_order_my_my_store_payment_method_xpath.PAY_BY_BANK_INPUT)
 
-        print()
+        page = AutomationPracticeOrderPaymentConfirmMyOrder(driver=self.driver)
+        page.open_page()
+        page.find_and_click(locator=automation_practice_order_payment_confirm_my_order_xpath.I_CONFIRM_MY_ORDER_BUTTON)
+
+        logging.warning("Back to orders")
+        page = AutomationPracticeOrderPaymentBackToOrders(driver=self.driver)
+        page.open_page(not_getting_page=True)
+        page.find_and_click(locator=automation_practice_order_payment_back_to_orders_xpath.BACK_TO_ORDERS)
+
+    # 12. Back to orders
+    # 13. Check if new order is visible in order reference column.
+
 
     """
     1. Create user.
