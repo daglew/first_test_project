@@ -6,6 +6,7 @@ from tests.objects.initialize_webdriver import InitializeWebDriver
 from tests.commons.pages.automation_practice_order_history import Xpath as automation_practice_order_history_xpath
 from tests.commons.pages.automation_practice_order_history import Ids as automation_practice_order_history_ids
 from tests.commons.pages.automation_practice_order_search import Xpath as automation_practice_order_search_xpath
+from tests.objects.pages.automation_practice_back_to_order_history_page import AutomationPracticeBackToOrderHistory
 from tests.objects.pages.automation_practice_order_my_my_store_payment_method_page import \
     AutomationPracticeOrderMyStorePaymentMethod
 from tests.objects.pages.automation_practice_order_my_store_address_page import \
@@ -25,6 +26,7 @@ from tests.commons.pages.automation_practice_order_my_store_shipping import Xpat
 from tests.commons.pages.automation_practice_order_my_my_store_payment_method import Xpath as automation_practice_order_my_my_store_payment_method_xpath
 from tests.commons.pages.automation_practice_order_payment_confirm_my_order import Xpath as automation_practice_order_payment_confirm_my_order_xpath
 from tests.commons.pages.automation_practice_order_payment_back_to_orders import Xpath as automation_practice_order_payment_back_to_orders_xpath
+from tests.commons.pages.automation_practice_back_to_order_history import Xpath as automation_practice_back_to_order_history_xpath
 
 class TestOrder(InitializeWebDriver):
 
@@ -167,9 +169,11 @@ class TestOrder(InitializeWebDriver):
         page.open_page(not_getting_page=True)
         page.find_and_click(locator=automation_practice_order_payment_back_to_orders_xpath.BACK_TO_ORDERS)
 
-    # 12. Back to orders
-    # 13. Check if new order is visible in order reference column.
-
+        logging.warning("Check if new order is visible in order reference column.")
+        page = AutomationPracticeBackToOrderHistory(driver=self.driver)
+        page.open_page()
+        check_reference = page.find_elements(locator=automation_practice_back_to_order_history_xpath.ORDER_REFERENCE)
+        assert len(check_reference) == 1, f"Expected result is 1 item list, current result is: {check_reference}."
 
     """
     1. Create user.
