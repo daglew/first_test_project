@@ -3,8 +3,7 @@ from selenium.webdriver.common.by import By
 from tests.commons.emails import Email
 from tests.commons.pages.automation_practice_create_an_account import Ids as automation_create_an_account_id, \
     dropdown_years, dropdown_day, dropdown_months, state_selector, country_selector
-from tests.commons.pages.automation_practice_create_an_account import Xpath as automation_create_an_account_xpath
-from tests.objects.pages.automation_practice_find_my_account import AutomationPraticeFindMyAccount
+from tests.objects.pages.automation_practice_find_my_account_page import AutomationPraticeFindMyAccount
 
 
 class AutomationPraticeCreateAccount:

@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 
 from tests.commons.pages.automation_practice_find_my_account import Xpath as automation_practice_find_my_account_xpath
-from tests.commons.pages.automation_practice_find_my_account import Ids as automation_practice_find_my_account_ids
+from tests.objects.pages.automation_practice_order_history_page import AutomationPracticeOrderHistoryPage
 
 
 class AutomationPraticeFindMyAccount:
@@ -47,5 +47,14 @@ class AutomationPraticeFindMyAccount:
         assert element.text == f"{name} {last_name}", f"Element:{element.text} is visible."
 
     def click_my_personal_information(self):
-        self.find_and_click(locator=automation_practice_find_my_account_ids.MY_PERSONAL_INFORMATION_BUTTON)
+        self.find_and_click(locator=automation_practice_find_my_account_xpath.MY_PERSONAL_INFORMATION_BUTTON)
+
+    def click_order_history_and_details(self):
+        self.find_and_click(locator=automation_practice_find_my_account_xpath.ORDER_HISTORY_AND_DETAILS_BUTTON)
+        page = AutomationPracticeOrderHistoryPage(driver=self.driver)
+        page.open_page()
+        return page
+
+
+
 
