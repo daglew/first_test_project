@@ -6,6 +6,7 @@ from tests.objects.initialize_webdriver import InitializeWebDriver
 from tests.commons.pages.automation_practice_order_history import Xpath as automation_practice_order_history_xpath
 from tests.commons.pages.automation_practice_order_history import Ids as automation_practice_order_history_ids
 from tests.commons.pages.automation_practice_order_search import Xpath as automation_practice_order_search_xpath
+from tests.commons.pages.automation_practice_order_search import Ids as automation_practice_order_search_ids
 from tests.objects.pages.automation_practice_back_to_order_history_page import AutomationPracticeBackToOrderHistory
 from tests.objects.pages.automation_practice_order_my_my_store_payment_method_page import \
     AutomationPracticeOrderMyStorePaymentMethod
@@ -195,7 +196,69 @@ class TestOrder(InitializeWebDriver):
 
     """
     def test_order_history_few_items_ordered(self):
-        pass
+        logging.warning("Open this url  http://automationpractice.com/index.php and maximalize window, check title")
+        logging.warning("Click on sign in link.")
+        logging.warning("Enter your email address in 'Create an account' section.")
+        logging.warning("Click on Create an Account button.")
+        logging.warning("Enter your Personal Information, Address and Contact info.")
+        logging.warning("Validate that user is created.")
+        logging.warning("Create user.")
+
+        uniqe_id = str(uuid.uuid4())
+        generated_email = f"kazia{uniqe_id[:5]}@gmail.com"
+        expected_warning = "You have not placed any orders."
+
+        page = create_user(driver=self.driver,
+                           title="Mrs",
+                           name="Basia",
+                           last_name="Kasia",
+                           email=generated_email,
+                           password="xyzbgj45",
+                           number_day=4,
+                           number_months=7,
+                           number_years=2002,
+                           address="zielona",
+                           city="gdansk",
+                           state="alaska",
+                           zip_code="00000",
+                           information="...",
+                           home_number="89765423",
+                           selector_country="United States",
+                           mobile_phone="123456789",
+                           receive_special_offers=True,
+                           sign_up_newsletter=True)
+
+        logging.warning("Click Order history and details tab.")
+        page = page.click_order_history_and_details()
+
+        logging.warning("Check if alert warning is visible.")
+        alert_warning = page.find_element(locator=automation_practice_order_history_xpath.ALERT_WARNING).text
+        assert alert_warning == expected_warning, f"Expected warning information on the page: {expected_warning} is " \
+                                                  f"not equal to current alert waning {alert_warning} "
+
+        logging.warning("Find Faded Short Sleeve T-shirts.")
+        page = AutomationPracticeOrderSearch(driver=self.driver)
+        page.find_input_send_keys(locator=automation_practice_order_search_ids.INPUT_SEARCH,
+                                  input_keys="Faded Short Sleeve T-shirts")
+        page.find_and_click(locator=automation_practice_order_search_xpath.SEARCH_BUTTON)
+
+        logging.warning("Click Add to cart.")
+        page.hover_element_by_mouse(locator=automation_practice_order_search_xpath.PICTURE)
+        page.find_and_click(locator=automation_practice_order_search_xpath.ADD_TO_CART_BUTTON)
+
+        logging.warning("Confirm order.")
+        page.find_and_click(locator=automation_practice_order_search_xpath.PROCEED_TO_CHECKOUT)
+
+        logging.warning("Find Faded Blouses.")
+        page.find_input_send_keys(locator=automation_practice_order_search_ids.INPUT_SEARCH, input_keys="Faded Blouses")
+        page.find_and_click(locator=automation_practice_order_search_xpath.SEARCH_BUTTON)
+
+
+
+
+        # logging.warning("Confirm summary.")
+
+
 
     """
     1. Create user.
