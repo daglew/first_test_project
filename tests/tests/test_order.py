@@ -1,5 +1,6 @@
 import logging
 import uuid
+from datetime import time
 
 from tests.objects.helpers import create_user
 from tests.objects.initialize_webdriver import InitializeWebDriver
@@ -19,6 +20,7 @@ from tests.objects.pages.automation_practice_order_payment_back_to_orders_page i
     AutomationPracticeOrderPaymentBackToOrders
 from tests.objects.pages.automation_practice_order_payment_confirm_my_order_page import \
     AutomationPracticeOrderPaymentConfirmMyOrder
+from tests.objects.pages.automation_practice_order_search_blouses_add_page import AutomationPracticeSearchBlouses
 from tests.objects.pages.automation_practice_order_search_page import AutomationPracticeOrderSearch
 from tests.commons.pages.automation_practice_order_my_store import Xpath as automation_practice_order_my_store_xpath
 from tests.commons.pages.automation_practice_order_my_store_address import Xpath as automation_practice_order_my_store_address_xpath
@@ -28,6 +30,8 @@ from tests.commons.pages.automation_practice_order_my_my_store_payment_method im
 from tests.commons.pages.automation_practice_order_payment_confirm_my_order import Xpath as automation_practice_order_payment_confirm_my_order_xpath
 from tests.commons.pages.automation_practice_order_payment_back_to_orders import Xpath as automation_practice_order_payment_back_to_orders_xpath
 from tests.commons.pages.automation_practice_back_to_order_history import Xpath as automation_practice_back_to_order_history_xpath
+from tests.commons.pages.automation_practice_order_search_blouses_add import Xpath as automation_practice_order_search_blouses_add_xpath
+
 
 class TestOrder(InitializeWebDriver):
 
@@ -250,9 +254,20 @@ class TestOrder(InitializeWebDriver):
         page.find_and_click(locator=automation_practice_order_search_xpath.PROCEED_TO_CHECKOUT)
 
         logging.warning("Find Faded Blouses.")
-        page.find_input_send_keys(locator=automation_practice_order_search_ids.INPUT_SEARCH, input_keys="Faded Blouses")
+        page.find_input_send_keys(locator=automation_practice_order_search_ids.INPUT_SEARCH, input_keys="Blouses")
         page.find_and_click(locator=automation_practice_order_search_xpath.SEARCH_BUTTON)
 
+        page = AutomationPracticeSearchBlouses(driver=self.driver)
+        page.hover_element_by_mouse(locator=automation_practice_order_search_blouses_add_xpath.PICTURE_BLOUSE)
+        page.find_and_click(locator=automation_practice_order_search_blouses_add_xpath.ADD_BLOUSE_BUTTON)
+        page.find_and_click(locator=automation_practice_order_search_blouses_add_xpath.PROCEED_TO_CHECKOUT_2)
+
+
+
+
+        # page.find_and_click(locator=)
+
+        print()
 
 
 
