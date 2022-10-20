@@ -1,8 +1,6 @@
 class Xpath:
-    pass
+    PRODUCT = "//table[@id='cart_summary']//tr[contains(@class,'cart_item')]"
 
 
 class Ids:
-    PRODUCT = "//table[@id='cart_summary']/tbody/tr"
-
-
+    pass
