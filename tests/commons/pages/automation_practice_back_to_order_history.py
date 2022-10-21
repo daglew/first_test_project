@@ -3,5 +3,5 @@ class Xpath:
 
 
 class Ids:
-    pass
+    SEARCH_INPUT_2 = "search_query_top"
 
