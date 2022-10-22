@@ -34,8 +34,8 @@ from tests.commons.pages.automation_practice_back_to_order_history import Xpath 
 from tests.commons.pages.automation_practice_order_search_blouses_add import Xpath as automation_practice_order_search_blouses_add_xpath
 from tests.commons.pages.automation_practice_order_casrt_summary import Xpath as automation_practice_order_casrt_summary_xpath
 from tests.commons.pages.automation_practice_back_to_order_history import Ids as automation_practice_back_to_order_history_ids
-
-
+from tests.objects.pages.automation_practice_search_my_store_page import AutomationPracticeSearchMyStore
+from tests.commons.pages.automation_practice_search_my_store import Xpath as automation_practice_search_my_story_xpath
 
 
 class TestOrder(InitializeWebDriver):
@@ -422,9 +422,25 @@ class TestOrder(InitializeWebDriver):
 
         logging.warning("Find Printed Summer Dress.")
         page.find_input_send_keys(locator=automation_practice_back_to_order_history_ids.SEARCH_INPUT_2, input_keys="Printed Summer Dress")
+        page.find_and_click(locator=automation_practice_back_to_order_history_xpath.SEARCH_BUTTON_2)
 
         logging.warning("Click Add to cart.")
+        page = AutomationPracticeSearchMyStore(driver=self.driver)
+        page.open_page()
+        page.hover_element_by_mouse(locator=automation_practice_search_my_story_xpath.SELECTION_DRESS)
+        page.find_and_click(locator=automation_practice_search_my_story_xpath.ADD_BUTTON_DRESS)
 
+        logging.warning("Confirm order.")
+        page.find_and_click(locator=automation_practice_search_my_story_xpath.PROCEDER_TO_CHECKOUT_2)
+
+        logging.warning("Confirm summary")
+        page = AutomationPracticeCartSummary(driver=self.driver)
+        page.open_page()
+        page.find_and_click(locator=automation_practice_order_casrt_summary_xpath.PROCEDER_CHECKOUT)
+
+        # logging.warning()
+        # logging.warning()
+        print()
 
 
 
