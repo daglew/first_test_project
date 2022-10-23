@@ -25,6 +25,7 @@ from tests.objects.pages.automation_practice_order_search_blouses_add_page impor
 from tests.objects.pages.automation_practice_order_search_page import AutomationPracticeOrderSearch
 from tests.commons.pages.automation_practice_order_my_store import Xpath as automation_practice_order_my_store_xpath
 from tests.commons.pages.automation_practice_order_my_store_address import Xpath as automation_practice_order_my_store_address_xpath
+from tests.commons.pages.automation_practice_order_my_store_address import Ids as automation_practice_order_my_store_address_ids
 from tests.commons.pages.automation_practice_order_my_store_shipping import Ids as automation_practice_order_my_store_shipping_ids
 from tests.commons.pages.automation_practice_order_my_store_shipping import Xpath as automation_practice_order_my_store_shipping_xpath
 from tests.commons.pages.automation_practice_order_my_my_store_payment_method import Xpath as automation_practice_order_my_my_store_payment_method_xpath
@@ -36,6 +37,7 @@ from tests.commons.pages.automation_practice_order_casrt_summary import Xpath as
 from tests.commons.pages.automation_practice_back_to_order_history import Ids as automation_practice_back_to_order_history_ids
 from tests.objects.pages.automation_practice_search_my_store_page import AutomationPracticeSearchMyStore
 from tests.commons.pages.automation_practice_search_my_store import Xpath as automation_practice_search_my_story_xpath
+
 
 
 class TestOrder(InitializeWebDriver):
@@ -438,11 +440,19 @@ class TestOrder(InitializeWebDriver):
         page.open_page()
         page.find_and_click(locator=automation_practice_order_casrt_summary_xpath.PROCEDER_CHECKOUT)
 
-        # logging.warning()
-        # logging.warning()
-        print()
+        logging.warning("Confirm address.")
+        page = AutomationPracticeOrderMyStoreAddressPage(driver=self.driver)
+        page.open_page()
+        page.find_and_click(locator=automation_practice_order_my_store_address_xpath.PROCEED_TO_CHECKOUT_ADDRESS_BUTTON)
+
+        logging.warning("Mark agreement and confirm shipping.")
+        page.find_and_click(locator=automation_practice_order_my_store_address_ids.TEMS_OF_SERVICE_INPUT)
+        page.find_and_click(locator=automation_practice_order_my_store_address_xpath.PROCEDER_CHECKOUT_SHIPPING)
+
+        logging.warning("Choose and click payment method.")
 
 
-
-
+        # logging.warning("Confirm order.")
+        # logging.warning("Back to orders.")
+        # logging.warning("Verify that both orders appear in the order column.")
 
