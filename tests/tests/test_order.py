@@ -293,6 +293,8 @@ class TestOrder(InitializeWebDriver):
         page = AutomationPracticeOrderMyStorePaymentMethod(driver=self.driver)
         page.open_page(not_getting_page=True)
         page.find_and_click(locator=automation_practice_order_my_my_store_payment_method_xpath.PAY_BY_BANK_INPUT)
+
+        page = AutomationPracticeOrderPaymentConfirmMyOrder(driver=self.driver)
         page.find_and_click(locator=automation_practice_order_payment_confirm_my_order_xpath.I_CONFIRM_MY_ORDER_BUTTON)
 
         logging.warning("Back to orders")
@@ -450,9 +452,22 @@ class TestOrder(InitializeWebDriver):
         page.find_and_click(locator=automation_practice_order_my_store_address_xpath.PROCEDER_CHECKOUT_SHIPPING)
 
         logging.warning("Choose and click payment method.")
+        page = AutomationPracticeOrderMyStorePaymentMethod(driver=self.driver)
+        page.open_page(not_getting_page=True)
+        page.find_and_click(locator=automation_practice_order_my_my_store_payment_method_xpath.PAY_BY_BANK_INPUT)
 
+        logging.warning("Confirm order.")
+        page = AutomationPracticeOrderPaymentConfirmMyOrder(driver=self.driver)
+        page.find_and_click(locator=automation_practice_order_payment_confirm_my_order_xpath.I_CONFIRM_MY_ORDER_BUTTON)
 
-        # logging.warning("Confirm order.")
-        # logging.warning("Back to orders.")
-        # logging.warning("Verify that both orders appear in the order column.")
+        logging.warning("Back to orders")
+        page = AutomationPracticeOrderPaymentBackToOrders(driver=self.driver)
+        page.open_page(not_getting_page=True)
+        page.find_and_click(locator=automation_practice_order_payment_back_to_orders_xpath.BACK_TO_ORDERS)
+
+        logging.warning("Verify that both orders appear in the order column.")
+        page = AutomationPracticeBackToOrderHistory(driver=self.driver)
+        page.open_page()
+        check_reference = page.find_elements(locator=automation_practice_back_to_order_history_xpath.ORDER_REFERENCE)
+        assert len(check_reference) == 2, f"Expected result is 1 item list, current result is: {check_reference}."
 
