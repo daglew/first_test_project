@@ -1,6 +1,5 @@
 import logging
 import uuid
-from datetime import time
 
 from tests.objects.helpers import create_user
 from tests.objects.initialize_webdriver import InitializeWebDriver
@@ -15,6 +14,7 @@ from tests.objects.pages.automation_practice_order_my_my_store_payment_method_pa
 from tests.objects.pages.automation_practice_order_my_store_address_page import \
     AutomationPracticeOrderMyStoreAddressPage
 from tests.objects.pages.automation_practice_order_my_store_page import AutomationPracticeOrderMyStorePage
+from tests.commons.pages.automation_practice_order_my_store import Ids as automation_practice_order_my_store_ids
 from tests.objects.pages.automation_practice_order_my_store_shipping_page import \
     AutomationPracticeOrderMyStoreShippingPage
 from tests.objects.pages.automation_practice_order_payment_back_to_orders_page import \
@@ -37,7 +37,6 @@ from tests.commons.pages.automation_practice_order_casrt_summary import Xpath as
 from tests.commons.pages.automation_practice_back_to_order_history import Ids as automation_practice_back_to_order_history_ids
 from tests.objects.pages.automation_practice_search_my_store_page import AutomationPracticeSearchMyStore
 from tests.commons.pages.automation_practice_search_my_store import Xpath as automation_practice_search_my_story_xpath
-
 
 
 class TestOrder(InitializeWebDriver):
@@ -163,9 +162,9 @@ class TestOrder(InitializeWebDriver):
         page.find_and_click(locator=automation_practice_order_my_store_address_xpath.PROCEED_TO_CHECKOUT_ADDRESS_BUTTON)
 
         logging.warning("Choose and click payment method.")
-        page = AutomationPracticeOrderMyStoreShippingPage(driver=self.driver)
-        page.find_and_click(locator=automation_practice_order_my_store_shipping_ids.TEMS_OF_SERVICE_INPUT)
-        page.find_and_click(locator=automation_practice_order_my_store_shipping_xpath.PROCEED_TO_CHECKOUT_SHIPPING_BUTTON)
+        page = AutomationPracticeOrderMyStorePage(driver=self.driver)
+        page.find_and_click(locator=automation_practice_order_my_store_ids.TEMS_OF_SERVICE_INPUT)
+        page.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_SHIPPING_BUTTON)
 
         logging.warning("Confirm order.")
         page = AutomationPracticeOrderMyStorePaymentMethod(driver=self.driver)
@@ -285,9 +284,9 @@ class TestOrder(InitializeWebDriver):
         page.find_and_click(locator=automation_practice_order_my_store_address_xpath.PROCEED_TO_CHECKOUT_ADDRESS_BUTTON)
 
         logging.warning("Choose and click payment method.")
-        page = AutomationPracticeOrderMyStoreShippingPage(driver=self.driver)
-        page.find_and_click(locator=automation_practice_order_my_store_shipping_ids.TEMS_OF_SERVICE_INPUT)
-        page.find_and_click(locator=automation_practice_order_my_store_shipping_xpath.PROCEED_TO_CHECKOUT_SHIPPING_BUTTON)
+        page = AutomationPracticeOrderMyStorePage(driver=self.driver)
+        page.find_and_click(locator=automation_practice_order_my_store_ids.TEMS_OF_SERVICE_INPUT)
+        page.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_SHIPPING_BUTTON)
 
         logging.warning("Confirm order.")
         page = AutomationPracticeOrderMyStorePaymentMethod(driver=self.driver)
@@ -400,9 +399,9 @@ class TestOrder(InitializeWebDriver):
         page.find_and_click(locator=automation_practice_order_my_store_address_xpath.PROCEED_TO_CHECKOUT_ADDRESS_BUTTON)
 
         logging.warning("Choose and click payment method.")
-        page = AutomationPracticeOrderMyStoreShippingPage(driver=self.driver)
-        page.find_and_click(locator=automation_practice_order_my_store_shipping_ids.TEMS_OF_SERVICE_INPUT)
-        page.find_and_click(locator=automation_practice_order_my_store_shipping_xpath.PROCEED_TO_CHECKOUT_SHIPPING_BUTTON)
+        page = AutomationPracticeOrderMyStorePage(driver=self.driver)
+        page.find_and_click(locator=automation_practice_order_my_store_ids.TEMS_OF_SERVICE_INPUT)
+        page.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_SHIPPING_BUTTON)
 
         logging.warning("Confirm order.")
         page = AutomationPracticeOrderMyStorePaymentMethod(driver=self.driver)

@@ -29,4 +29,11 @@ class AutomationPracticeOrderMyStorePage:
             element = self.driver.find_element(By.ID, locator)
         return element
 
+    def find_elements(self, locator: str):
+        if locator.startswith("//"):
+            elements = self.driver.find_elements(By.XPATH, locator)
+        else:
+            elements = self.driver.find_elements(By.ID, locator)
+        return elements
+
 
