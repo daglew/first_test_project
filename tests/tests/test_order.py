@@ -7,16 +7,13 @@ from tests.commons.pages.automation_practice_order_history import Xpath as autom
 from tests.commons.pages.automation_practice_order_history import Ids as automation_practice_order_history_ids
 from tests.commons.pages.automation_practice_order_search import Xpath as automation_practice_order_search_xpath
 from tests.commons.pages.automation_practice_order_search import Ids as automation_practice_order_search_ids
-from tests.objects.pages.automation_practice_back_to_order_history_page import AutomationPracticeBackToOrderHistory
-from tests.objects.pages.automation_practice_order_casrt_summary_page import AutomationPracticeCartSummary
+from tests.objects.pages.automation_practice_order_history_page import AutomationPracticeOrderHistoryPage
 from tests.objects.pages.automation_practice_order_my_my_store_payment_method_page import \
     AutomationPracticeOrderMyStorePaymentMethod
 from tests.objects.pages.automation_practice_order_my_store_address_page import \
     AutomationPracticeOrderMyStoreAddressPage
 from tests.objects.pages.automation_practice_order_my_store_page import AutomationPracticeOrderMyStorePage
 from tests.commons.pages.automation_practice_order_my_store import Ids as automation_practice_order_my_store_ids
-from tests.objects.pages.automation_practice_order_my_store_shipping_page import \
-    AutomationPracticeOrderMyStoreShippingPage
 from tests.objects.pages.automation_practice_order_payment_back_to_orders_page import \
     AutomationPracticeOrderPaymentBackToOrders
 from tests.objects.pages.automation_practice_order_payment_confirm_my_order_page import \
@@ -26,15 +23,10 @@ from tests.objects.pages.automation_practice_order_search_page import Automation
 from tests.commons.pages.automation_practice_order_my_store import Xpath as automation_practice_order_my_store_xpath
 from tests.commons.pages.automation_practice_order_my_store_address import Xpath as automation_practice_order_my_store_address_xpath
 from tests.commons.pages.automation_practice_order_my_store_address import Ids as automation_practice_order_my_store_address_ids
-from tests.commons.pages.automation_practice_order_my_store_shipping import Ids as automation_practice_order_my_store_shipping_ids
-from tests.commons.pages.automation_practice_order_my_store_shipping import Xpath as automation_practice_order_my_store_shipping_xpath
 from tests.commons.pages.automation_practice_order_my_my_store_payment_method import Xpath as automation_practice_order_my_my_store_payment_method_xpath
 from tests.commons.pages.automation_practice_order_payment_confirm_my_order import Xpath as automation_practice_order_payment_confirm_my_order_xpath
 from tests.commons.pages.automation_practice_order_payment_back_to_orders import Xpath as automation_practice_order_payment_back_to_orders_xpath
-from tests.commons.pages.automation_practice_back_to_order_history import Xpath as automation_practice_back_to_order_history_xpath
 from tests.commons.pages.automation_practice_order_search_blouses_add import Xpath as automation_practice_order_search_blouses_add_xpath
-from tests.commons.pages.automation_practice_order_casrt_summary import Xpath as automation_practice_order_casrt_summary_xpath
-from tests.commons.pages.automation_practice_back_to_order_history import Ids as automation_practice_back_to_order_history_ids
 from tests.objects.pages.automation_practice_search_my_store_page import AutomationPracticeSearchMyStore
 from tests.commons.pages.automation_practice_search_my_store import Xpath as automation_practice_search_my_story_xpath
 
@@ -181,9 +173,9 @@ class TestOrder(InitializeWebDriver):
         page.find_and_click(locator=automation_practice_order_payment_back_to_orders_xpath.BACK_TO_ORDERS)
 
         logging.warning("Check if new order is visible in order reference column.")
-        page = AutomationPracticeBackToOrderHistory(driver=self.driver)
+        page = AutomationPracticeOrderHistoryPage(driver=self.driver)
         page.open_page()
-        check_reference = page.find_elements(locator=automation_practice_back_to_order_history_xpath.ORDER_REFERENCE)
+        check_reference = page.find_elements(locator=automation_practice_order_history_xpath.ORDER_REFERENCE)
         assert len(check_reference) == 1, f"Expected result is 1 item list, current result is: {check_reference}."
 
     """
@@ -272,8 +264,8 @@ class TestOrder(InitializeWebDriver):
         page.find_and_click(locator=automation_practice_order_search_blouses_add_xpath.PROCEED_TO_CHECKOUT_2)
 
         logging.warning("Confirm summary.")
-        page = AutomationPracticeCartSummary(driver=self.driver)
-        check_number_product = page.find_elements(locator=automation_practice_order_casrt_summary_xpath.PRODUCT)
+        page = AutomationPracticeOrderMyStorePage(driver=self.driver)
+        check_number_product = page.find_elements(locator=automation_practice_order_my_store_xpath.PRODUCT)
         assert len(check_number_product) == 2, f"Expected result is 2 item list, current result is: {check_number_product}."
 
         logging.warning("Confirm address.")
@@ -302,9 +294,9 @@ class TestOrder(InitializeWebDriver):
         page.find_and_click(locator=automation_practice_order_payment_back_to_orders_xpath.BACK_TO_ORDERS)
 
         logging.warning("Check if new order is visible in order reference column.")
-        page = AutomationPracticeBackToOrderHistory(driver=self.driver)
+        page = AutomationPracticeOrderHistoryPage(driver=self.driver)
         page.open_page()
-        check_reference = page.find_elements(locator=automation_practice_back_to_order_history_xpath.ORDER_REFERENCE)
+        check_reference = page.find_elements(locator=automation_practice_order_history_xpath.ORDER_REFERENCE)
         assert len(check_reference) == 1, f"Expected result is 1 item list, current result is: {check_reference}."
 
 
@@ -418,14 +410,14 @@ class TestOrder(InitializeWebDriver):
         page.find_and_click(locator=automation_practice_order_payment_back_to_orders_xpath.BACK_TO_ORDERS)
 
         logging.warning("Check if new order is visible in order reference column.")
-        page = AutomationPracticeBackToOrderHistory(driver=self.driver)
+        page = AutomationPracticeOrderHistoryPage(driver=self.driver)
         page.open_page()
-        check_reference = page.find_elements(locator=automation_practice_back_to_order_history_xpath.ORDER_REFERENCE)
+        check_reference = page.find_elements(locator=automation_practice_order_history_xpath.ORDER_REFERENCE)
         assert len(check_reference) == 1, f"Expected result is 1 item list, current result is: {check_reference}."
 
         logging.warning("Find Printed Summer Dress.")
-        page.find_input_send_keys(locator=automation_practice_back_to_order_history_ids.SEARCH_INPUT_2, input_keys="Printed Summer Dress")
-        page.find_and_click(locator=automation_practice_back_to_order_history_xpath.SEARCH_BUTTON_2)
+        page.find_input_send_keys(locator=automation_practice_order_history_ids.INPUT_SEARCH, input_keys="Printed Summer Dress")
+        page.find_and_click(locator=automation_practice_order_history_xpath.SEARCH_BUTTON)
 
         logging.warning("Click Add to cart.")
         page = AutomationPracticeSearchMyStore(driver=self.driver)
@@ -437,9 +429,9 @@ class TestOrder(InitializeWebDriver):
         page.find_and_click(locator=automation_practice_search_my_story_xpath.PROCEDER_TO_CHECKOUT_2)
 
         logging.warning("Confirm summary")
-        page = AutomationPracticeCartSummary(driver=self.driver)
+        page = AutomationPracticeOrderMyStorePage(driver=self.driver)
         page.open_page()
-        page.find_and_click(locator=automation_practice_order_casrt_summary_xpath.PROCEDER_CHECKOUT)
+        page.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_BUTTON)
 
         logging.warning("Confirm address.")
         page = AutomationPracticeOrderMyStoreAddressPage(driver=self.driver)
@@ -465,8 +457,8 @@ class TestOrder(InitializeWebDriver):
         page.find_and_click(locator=automation_practice_order_payment_back_to_orders_xpath.BACK_TO_ORDERS)
 
         logging.warning("Verify that both orders appear in the order column.")
-        page = AutomationPracticeBackToOrderHistory(driver=self.driver)
+        page = AutomationPracticeOrderHistoryPage(driver=self.driver)
         page.open_page()
-        check_reference = page.find_elements(locator=automation_practice_back_to_order_history_xpath.ORDER_REFERENCE)
+        check_reference = page.find_elements(locator=automation_practice_order_history_xpath.ORDER_REFERENCE)
         assert len(check_reference) == 2, f"Expected result is 1 item list, current result is: {check_reference}."
 
