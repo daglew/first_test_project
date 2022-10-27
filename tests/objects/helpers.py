@@ -32,3 +32,4 @@ def create_user(driver, title, name, last_name, email, password, number_day, num
     page = page.click_register_button()
     page.assert_user_log_in(name=name, last_name=last_name)
     return page
+

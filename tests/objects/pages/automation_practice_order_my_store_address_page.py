@@ -1,4 +1,6 @@
 from selenium.webdriver.common.by import By
+from tests.commons.pages.automation_practice_order_my_store_address import Ids as automation_practice_order_my_store_address_ids
+from tests.commons.pages.automation_practice_order_my_store_address import Xpath as automation_practice_order_my_store_address_xpath
 
 
 class AutomationPracticeOrderMyStoreAddressPage:
@@ -21,5 +23,9 @@ class AutomationPracticeOrderMyStoreAddressPage:
             element = self.driver.find_element(By.ID, locator)
             element.click()
         return element
+
+    def mark_agreement_and_confirm_shipping(self):
+        self.find_and_click(locator=automation_practice_order_my_store_address_ids.TEMS_OF_SERVICE_INPUT)
+        self.find_and_click(locator=automation_practice_order_my_store_address_xpath.PROCEDER_CHECKOUT_SHIPPING)
 
 

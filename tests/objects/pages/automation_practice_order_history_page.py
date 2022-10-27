@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from tests.commons.pages.automation_practice_order_history import Xpath as automation_practice_order_history_xpath
+from tests.commons.pages.automation_practice_order_history import Ids as automation_practice_order_history_ids
 
 
 class AutomationPracticeOrderHistoryPage:
@@ -45,6 +46,13 @@ class AutomationPracticeOrderHistoryPage:
         element.clear()
         element.send_keys(input_keys)
         return element
+
+    def find_printed_summer_dress(self):
+        self.find_input_send_keys(locator=automation_practice_order_history_ids.INPUT_SEARCH,
+                                  input_keys="Printed Summer Dress")
+        self.find_and_click(locator=automation_practice_order_history_xpath.SEARCH_BUTTON)
+
+
 
 
 

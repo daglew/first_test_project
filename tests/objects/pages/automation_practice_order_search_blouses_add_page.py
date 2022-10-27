@@ -1,5 +1,6 @@
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
+from tests.commons.pages.automation_practice_order_search_blouses_add import Xpath as automation_practice_order_search_blouses_add_xpath
 
 
 class AutomationPracticeSearchBlouses:
@@ -33,6 +34,11 @@ class AutomationPracticeSearchBlouses:
         action = ActionChains(driver=self.driver)
         element = self.find_element(locator)
         action.move_to_element(element).perform()
+
+    def confirm_order_blouse(self):
+        self.find_and_click(locator=automation_practice_order_search_blouses_add_xpath.ADD_BLOUSE_BUTTON)
+        self.find_and_click(locator=automation_practice_order_search_blouses_add_xpath.PROCEED_TO_CHECKOUT_2)
+
 
 
 

@@ -70,8 +70,10 @@ class TestOrder(InitializeWebDriver):
                            mobile_phone="123456789",
                            receive_special_offers=True,
                            sign_up_newsletter=True)
+
         logging.warning("Click Order history and details tab.")
         page.click_order_history_and_details()
+
         logging.warning("Check if alert warning is visible.")
         alert_warning = page.find_element(locator=automation_practice_order_history_xpath.ALERT_WARNING).text
         assert alert_warning == expected_warning, f"Expected warning information on the page: {expected_warning} is " \
@@ -139,11 +141,10 @@ class TestOrder(InitializeWebDriver):
         page.find_and_click(locator=automation_practice_order_history_xpath.SEARCH_BUTTON)
 
         logging.warning("Click Add to cart.")
-        page.hover_element_by_mouse(locator=automation_practice_order_search_xpath.PICTURE)
-        page.find_and_click(locator=automation_practice_order_search_xpath.ADD_TO_CART_BUTTON)
+        page.click_add_to_cart()
 
         logging.warning("Confirm order.")
-        page.find_and_click(locator=automation_practice_order_search_xpath.PROCEED_TO_CHECKOUT)
+        page.confirm_order()
 
         logging.warning("Confirm summary.")
         page = AutomationPracticeOrderMyStorePage(driver=self.driver)
@@ -245,23 +246,20 @@ class TestOrder(InitializeWebDriver):
         page.find_and_click(locator=automation_practice_order_search_xpath.SEARCH_BUTTON)
 
         logging.warning("Click Add to cart.")
-        page.hover_element_by_mouse(locator=automation_practice_order_search_xpath.PICTURE)
-        page.find_and_click(locator=automation_practice_order_search_xpath.ADD_TO_CART_BUTTON)
+        page.click_add_to_cart()
 
         logging.warning("Confirm order.")
-        page.find_and_click(locator=automation_practice_order_search_xpath.PROCEED_TO_CHECKOUT)
+        page.confirm_order()
 
         logging.warning("Find Faded Blouses.")
-        page.find_input_send_keys(locator=automation_practice_order_search_ids.INPUT_SEARCH, input_keys="Blouses")
-        page.find_and_click(locator=automation_practice_order_search_xpath.SEARCH_BUTTON)
+        page.find_faded_blouses()
 
         logging.warning("Click Add to cart.")
         page = AutomationPracticeSearchBlouses(driver=self.driver)
         page.hover_element_by_mouse(locator=automation_practice_order_search_blouses_add_xpath.PICTURE_BLOUSE)
 
         logging.warning("Confirm order.")
-        page.find_and_click(locator=automation_practice_order_search_blouses_add_xpath.ADD_BLOUSE_BUTTON)
-        page.find_and_click(locator=automation_practice_order_search_blouses_add_xpath.PROCEED_TO_CHECKOUT_2)
+        page.confirm_order_blouse()
 
         logging.warning("Confirm summary.")
         page = AutomationPracticeOrderMyStorePage(driver=self.driver)
@@ -269,7 +267,7 @@ class TestOrder(InitializeWebDriver):
         assert len(check_number_product) == 2, f"Expected result is 2 item list, current result is: {check_number_product}."
 
         logging.warning("Confirm address.")
-        page.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_BUTTON)
+        page.confirm_address()
 
         logging.warning("Mark agreement and confirm shipping.")
         page = AutomationPracticeOrderMyStoreAddressPage(driver=self.driver)
@@ -298,9 +296,6 @@ class TestOrder(InitializeWebDriver):
         page.open_page()
         check_reference = page.find_elements(locator=automation_practice_order_history_xpath.ORDER_REFERENCE)
         assert len(check_reference) == 1, f"Expected result is 1 item list, current result is: {check_reference}."
-
-
-
 
     """
     1. Create user.
@@ -376,11 +371,10 @@ class TestOrder(InitializeWebDriver):
         page.find_and_click(locator=automation_practice_order_history_xpath.SEARCH_BUTTON)
 
         logging.warning("Click Add to cart.")
-        page.hover_element_by_mouse(locator=automation_practice_order_search_xpath.PICTURE)
-        page.find_and_click(locator=automation_practice_order_search_xpath.ADD_TO_CART_BUTTON)
+        page.click_add_to_cart()
 
         logging.warning("Confirm order.")
-        page.find_and_click(locator=automation_practice_order_search_xpath.PROCEED_TO_CHECKOUT)
+        page.confirm_order()
 
         logging.warning("Confirm summary.")
         page = AutomationPracticeOrderMyStorePage(driver=self.driver)
@@ -416,8 +410,7 @@ class TestOrder(InitializeWebDriver):
         assert len(check_reference) == 1, f"Expected result is 1 item list, current result is: {check_reference}."
 
         logging.warning("Find Printed Summer Dress.")
-        page.find_input_send_keys(locator=automation_practice_order_history_ids.INPUT_SEARCH, input_keys="Printed Summer Dress")
-        page.find_and_click(locator=automation_practice_order_history_xpath.SEARCH_BUTTON)
+        page.find_printed_summer_dress()
 
         logging.warning("Click Add to cart.")
         page = AutomationPracticeSearchMyStore(driver=self.driver)
@@ -426,7 +419,7 @@ class TestOrder(InitializeWebDriver):
         page.find_and_click(locator=automation_practice_search_my_story_xpath.ADD_BUTTON_DRESS)
 
         logging.warning("Confirm order.")
-        page.find_and_click(locator=automation_practice_search_my_story_xpath.PROCEDER_TO_CHECKOUT_2)
+        page.confirm_order()
 
         logging.warning("Confirm summary")
         page = AutomationPracticeOrderMyStorePage(driver=self.driver)
@@ -439,8 +432,7 @@ class TestOrder(InitializeWebDriver):
         page.find_and_click(locator=automation_practice_order_my_store_address_xpath.PROCEED_TO_CHECKOUT_ADDRESS_BUTTON)
 
         logging.warning("Mark agreement and confirm shipping.")
-        page.find_and_click(locator=automation_practice_order_my_store_address_ids.TEMS_OF_SERVICE_INPUT)
-        page.find_and_click(locator=automation_practice_order_my_store_address_xpath.PROCEDER_CHECKOUT_SHIPPING)
+        page.mark_agreement_and_confirm_shipping()
 
         logging.warning("Choose and click payment method.")
         page = AutomationPracticeOrderMyStorePaymentMethod(driver=self.driver)

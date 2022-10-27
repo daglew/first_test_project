@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from tests.commons.pages.automation_practice_order_my_store import Xpath as automation_practice_order_my_store_xpath
 
 
 class AutomationPracticeOrderMyStorePage:
@@ -36,4 +37,12 @@ class AutomationPracticeOrderMyStorePage:
             elements = self.driver.find_elements(By.ID, locator)
         return elements
 
+    def confirm_address(self):
+        self.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_BUTTON)
 
+
+    # def confirm_summary(self):
+    #     page = AutomationPracticeOrderMyStorePage(driver=self.driver)
+    #     page.open_page()
+    #     self.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_BUTTON)
+    #     return page

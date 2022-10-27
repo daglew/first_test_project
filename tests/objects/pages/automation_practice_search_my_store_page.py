@@ -1,5 +1,6 @@
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
+from tests.commons.pages.automation_practice_search_my_store import Xpath as automation_practice_search_my_story_xpath
 
 
 class AutomationPracticeSearchMyStore:
@@ -40,3 +41,7 @@ class AutomationPracticeSearchMyStore:
         element.clear()
         element.send_keys(input_keys)
         return element
+
+    def confirm_order(self):
+        self.find_and_click(locator=automation_practice_search_my_story_xpath.PROCEDER_TO_CHECKOUT_2)
+
