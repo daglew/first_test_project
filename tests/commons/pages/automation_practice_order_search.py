@@ -7,3 +7,7 @@ class Xpath:
 
 class Ids:
     INPUT_SEARCH = "search_query_top"
+
+
+def picture_with_text(picture_text):
+    return f"//img[@alt='{picture_text}']"

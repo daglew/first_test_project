@@ -38,7 +38,3 @@ class AutomationPracticeSearchBlouses:
     def confirm_order_blouse(self):
         self.find_and_click(locator=automation_practice_order_search_blouses_add_xpath.ADD_BLOUSE_BUTTON)
         self.find_and_click(locator=automation_practice_order_search_blouses_add_xpath.PROCEED_TO_CHECKOUT_2)
-
-
-
-

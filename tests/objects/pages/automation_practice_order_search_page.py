@@ -1,6 +1,7 @@
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
-from tests.commons.pages.automation_practice_order_search import Xpath as automation_practice_order_search_xpath
+from tests.commons.pages.automation_practice_order_search import Xpath as automation_practice_order_search_xpath, \
+    picture_with_text
 from tests.commons.pages.automation_practice_order_search import Ids as automation_practice_order_search_ids
 
 
@@ -42,8 +43,8 @@ class AutomationPracticeOrderSearch:
         element = self.find_element(locator)
         action.move_to_element(element).perform()
 
-    def click_add_to_cart(self):
-        self.hover_element_by_mouse(locator=automation_practice_order_search_xpath.PICTURE)
+    def click_add_to_cart(self, picture):
+        self.hover_element_by_mouse(locator=picture_with_text(picture))
         self.find_and_click(locator=automation_practice_order_search_xpath.ADD_TO_CART_BUTTON)
 
     def confirm_order(self):
@@ -52,4 +53,3 @@ class AutomationPracticeOrderSearch:
     def find_faded_blouses(self):
         self.find_input_send_keys(locator=automation_practice_order_search_ids.INPUT_SEARCH, input_keys="Blouses")
         self.find_and_click(locator=automation_practice_order_search_xpath.SEARCH_BUTTON)
-

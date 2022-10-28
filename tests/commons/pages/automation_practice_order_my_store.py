@@ -6,3 +6,5 @@ class Xpath:
 
 class Ids:
     TEMS_OF_SERVICE_INPUT = "cgv"
+
+

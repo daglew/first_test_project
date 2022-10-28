@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from tests.commons.pages.automation_practice_order_my_store import Xpath as automation_practice_order_my_store_xpath
+from tests.commons.pages.automation_practice_order_my_my_store_payment_method import Xpath as automation_practice_order_my_my_store_payment_method_xpath, pay_by_check
 
 
 class AutomationPracticeOrderMyStorePage:
@@ -39,6 +40,9 @@ class AutomationPracticeOrderMyStorePage:
 
     def confirm_address(self):
         self.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_BUTTON)
+
+    def pay_method(self, check_pay):
+        self.find_and_click(locator=pay_by_check(check_pay))
 
 
     # def confirm_summary(self):

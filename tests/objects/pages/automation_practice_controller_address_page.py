@@ -43,15 +43,6 @@ class AutomationPraticeControllerAddressPage:
         element.send_keys(input_keys)
         return element
 
-    def find_radio_button(self):
-        if "Mr" == 1:
-            elements = self.driver.find_elements()
-            element = f"/html//div[@id='center_column']//form[@action='http://automationpractice.com/index.php?controller=identity']/fieldset/div[1]/div[{locator}]/label[@class='top']"
-        elif "Mrs" == 2:
-            element = f"/html//div[@id='center_column']//form[@action='http://automationpractice.com/index.php?controller=identity']/fieldset/div[1]/div[{locator}]/label[@class='top']"
-        else:
-            raise Exception(f"")
-
     def find_elements(self, locator: str):
         if locator.startswith("//"):
             elements = self.driver.find_elements(By.XPATH, locator)

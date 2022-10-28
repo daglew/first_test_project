@@ -1,7 +1,7 @@
 import logging
 import uuid
 
-from tests.objects.helpers import create_user
+from tests.objects.helpers import create_user, create_and_add_to_card, create_order
 from tests.objects.initialize_webdriver import InitializeWebDriver
 from tests.commons.pages.automation_practice_order_history import Xpath as automation_practice_order_history_xpath
 from tests.commons.pages.automation_practice_order_history import Ids as automation_practice_order_history_ids
@@ -22,7 +22,6 @@ from tests.objects.pages.automation_practice_order_search_blouses_add_page impor
 from tests.objects.pages.automation_practice_order_search_page import AutomationPracticeOrderSearch
 from tests.commons.pages.automation_practice_order_my_store import Xpath as automation_practice_order_my_store_xpath
 from tests.commons.pages.automation_practice_order_my_store_address import Xpath as automation_practice_order_my_store_address_xpath
-from tests.commons.pages.automation_practice_order_my_store_address import Ids as automation_practice_order_my_store_address_ids
 from tests.commons.pages.automation_practice_order_my_my_store_payment_method import Xpath as automation_practice_order_my_my_store_payment_method_xpath
 from tests.commons.pages.automation_practice_order_payment_confirm_my_order import Xpath as automation_practice_order_payment_confirm_my_order_xpath
 from tests.commons.pages.automation_practice_order_payment_back_to_orders import Xpath as automation_practice_order_payment_back_to_orders_xpath
@@ -136,37 +135,30 @@ class TestOrder(InitializeWebDriver):
                                                   f"not equal to current alert waning {alert_warning} "
 
         logging.warning("Find Faded Short Sleeve T-shirts.")
-        page = AutomationPracticeOrderSearch(driver=self.driver)
-        page.find_input_send_keys(locator=automation_practice_order_history_ids.INPUT_SEARCH, input_keys="Faded Short Sleeve T-shirts")
-        page.find_and_click(locator=automation_practice_order_history_xpath.SEARCH_BUTTON)
-
-        logging.warning("Click Add to cart.")
-        page.click_add_to_cart()
-
-        logging.warning("Confirm order.")
-        page.confirm_order()
+        # page = create_and_add_to_card(driver=self.driver, input_keys="Faded Short Sleeve T-shirts")
 
         logging.warning("Confirm summary.")
-        page = AutomationPracticeOrderMyStorePage(driver=self.driver)
-        page.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_BUTTON)
-
-        logging.warning("Mark agreement and confirm shipping.")
-        page = AutomationPracticeOrderMyStoreAddressPage(driver=self.driver)
-        page.find_and_click(locator=automation_practice_order_my_store_address_xpath.PROCEED_TO_CHECKOUT_ADDRESS_BUTTON)
-
-        logging.warning("Choose and click payment method.")
-        page = AutomationPracticeOrderMyStorePage(driver=self.driver)
-        page.find_and_click(locator=automation_practice_order_my_store_ids.TEMS_OF_SERVICE_INPUT)
-        page.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_SHIPPING_BUTTON)
-
-        logging.warning("Confirm order.")
-        page = AutomationPracticeOrderMyStorePaymentMethod(driver=self.driver)
-        page.open_page(not_getting_page=True)
-        page.find_and_click(locator=automation_practice_order_my_my_store_payment_method_xpath.PAY_BY_BANK_INPUT)
-
-        page = AutomationPracticeOrderPaymentConfirmMyOrder(driver=self.driver)
-        page.open_page()
-        page.find_and_click(locator=automation_practice_order_payment_confirm_my_order_xpath.I_CONFIRM_MY_ORDER_BUTTON)
+        page = create_order(driver=self.driver, input_keys="Faded Short Sleeve T-shirts", check_pay=automation_practice_order_my_my_store_payment_method_xpath.PAY_BY_BANK_INPUT)
+        # page = AutomationPracticeOrderMyStorePage(driver=self.driver)
+        # page.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_BUTTON)
+        #
+        # logging.warning("Mark agreement and confirm shipping.")
+        # page = AutomationPracticeOrderMyStoreAddressPage(driver=self.driver)
+        # page.find_and_click(locator=automation_practice_order_my_store_address_xpath.PROCEED_TO_CHECKOUT_ADDRESS_BUTTON)
+        #
+        # logging.warning("Choose and click payment method.")
+        # page = AutomationPracticeOrderMyStorePage(driver=self.driver)
+        # page.find_and_click(locator=automation_practice_order_my_store_ids.TEMS_OF_SERVICE_INPUT)
+        # page.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_SHIPPING_BUTTON)
+        #
+        # logging.warning("Confirm order.")
+        # page = AutomationPracticeOrderMyStorePaymentMethod(driver=self.driver)
+        # page.open_page(not_getting_page=True)
+        # page.find_and_click(locator=automation_practice_order_my_my_store_payment_method_xpath.PAY_BY_BANK_INPUT)
+        #
+        # page = AutomationPracticeOrderPaymentConfirmMyOrder(driver=self.driver)
+        # page.open_page()
+        # page.find_and_click(locator=automation_practice_order_payment_confirm_my_order_xpath.I_CONFIRM_MY_ORDER_BUTTON)
 
         logging.warning("Back to orders")
         page = AutomationPracticeOrderPaymentBackToOrders(driver=self.driver)

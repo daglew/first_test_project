@@ -4,7 +4,7 @@ from tests.commons.pages.automation_practice_find_my_account import Xpath as aut
 from tests.objects.pages.automation_practice_order_history_page import AutomationPracticeOrderHistoryPage
 
 
-class AutomationPraticeFindMyAccount:
+class AutomationPracticeFindMyAccount:
     def __init__(self, driver):
         self.driver = driver
         self.page = "http://automationpractice.com/index.php?controller=my-account"

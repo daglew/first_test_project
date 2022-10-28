@@ -24,7 +24,7 @@ class AutomationPracticeOrderHistoryPage:
             element.click()
         return element
 
-    def click_search_button(self, locator):
+    def click_search_button(self):
         self.find_and_click(locator=automation_practice_order_history_xpath.SEARCH_BUTTON)
 
     def find_element(self, locator: str):

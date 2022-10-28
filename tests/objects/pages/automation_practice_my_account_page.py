@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from tests.commons.pages.automation_practice_my_account import Ids as automation_my_account_ids
 from tests.commons.pages.automation_practice_my_account import Xpath as automation_my_account_xpath
-from tests.objects.pages.automation_practice_create_account_page import AutomationPraticeCreateAccount
+from tests.objects.pages.automation_practice_create_account_page import AutomationPracticeCreateAccount
 
 
 class AutomationPraticeMyAccountPage:
@@ -39,7 +39,7 @@ class AutomationPraticeMyAccountPage:
 
     def click_create_an_account_button(self):
         self.find_and_click(locator=automation_my_account_xpath.BUTTON_CREATE_AN_ACCOUNT)
-        page = AutomationPraticeCreateAccount(driver=self.driver)
+        page = AutomationPracticeCreateAccount(driver=self.driver)
         expected_title = page.title
         title = self.driver.title
         assert expected_title == title, f"Expected title: {expected_title} is different than current title: {title}."

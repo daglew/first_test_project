@@ -1,4 +1,20 @@
 from tests.objects.pages.automation_practice_page import AutomationPracticePage
+from tests.commons.pages.automation_practice_order_search import Xpath as automation_practice_order_search_xpath
+from tests.commons.pages.automation_practice_order_search import Ids as automation_practice_order_search_ids
+from tests.objects.pages.automation_practice_order_my_my_store_payment_method_page import \
+    AutomationPracticeOrderMyStorePaymentMethod
+from tests.objects.pages.automation_practice_order_my_store_address_page import \
+    AutomationPracticeOrderMyStoreAddressPage
+from tests.objects.pages.automation_practice_order_my_store_page import AutomationPracticeOrderMyStorePage
+from tests.commons.pages.automation_practice_order_my_store import Ids as automation_practice_order_my_store_ids
+from tests.objects.pages.automation_practice_order_payment_confirm_my_order_page import \
+    AutomationPracticeOrderPaymentConfirmMyOrder
+from tests.objects.pages.automation_practice_order_search_page import AutomationPracticeOrderSearch
+from tests.commons.pages.automation_practice_order_my_store import Xpath as automation_practice_order_my_store_xpath
+from tests.commons.pages.automation_practice_order_my_store_address import Xpath as automation_practice_order_my_store_address_xpath
+from tests.commons.pages.automation_practice_order_my_my_store_payment_method import \
+    Xpath as automation_practice_order_my_my_store_payment_method_xpath, pay_by_check
+from tests.commons.pages.automation_practice_order_payment_confirm_my_order import Xpath as automation_practice_order_payment_confirm_my_order_xpath
 
 
 def create_user(driver, title, name, last_name, email, password, number_day, number_months, number_years, address,
@@ -33,3 +49,34 @@ def create_user(driver, title, name, last_name, email, password, number_day, num
     page.assert_user_log_in(name=name, last_name=last_name)
     return page
 
+
+def create_and_add_to_card(driver, input_keys: str):
+    page = AutomationPracticeOrderSearch(driver=driver)
+    page.find_input_send_keys(locator=automation_practice_order_search_ids.INPUT_SEARCH,
+                              input_keys=input_keys)
+    page.find_and_click(locator=automation_practice_order_search_xpath.SEARCH_BUTTON)
+    page.click_add_to_cart(input_keys)
+    page.confirm_order()
+    return page
+
+
+def create_order(driver, input_keys: str, check_pay: str):
+    page = create_and_add_to_card(input_keys=input_keys)
+    page = AutomationPracticeOrderMyStorePage(driver=driver)
+    page.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_BUTTON)
+
+    page = AutomationPracticeOrderMyStoreAddressPage(driver=driver)
+    page.find_and_click(locator=automation_practice_order_my_store_address_xpath.PROCEED_TO_CHECKOUT_ADDRESS_BUTTON)
+
+    page = AutomationPracticeOrderMyStorePage(driver=driver)
+    page.find_and_click(locator=automation_practice_order_my_store_ids.TEMS_OF_SERVICE_INPUT)
+    page.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_SHIPPING_BUTTON)
+
+    page = AutomationPracticeOrderMyStorePaymentMethod(driver=driver)
+    page.open_page(not_getting_page=True)
+    page.pay_method(pay_by_check(check_pay))
+
+    page = AutomationPracticeOrderPaymentConfirmMyOrder(driver=driver)
+    page.open_page()
+    page.find_and_click(locator=automation_practice_order_payment_confirm_my_order_xpath.I_CONFIRM_MY_ORDER_BUTTON)
+    return page

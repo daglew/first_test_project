@@ -6,3 +6,6 @@ class Xpath:
 class Ids:
     pass
 
+
+def pay_by_check(check_pay):
+    return f"//a[@title='{check_pay}']"

@@ -44,4 +44,3 @@ class AutomationPracticeSearchMyStore:
 
     def confirm_order(self):
         self.find_and_click(locator=automation_practice_search_my_story_xpath.PROCEDER_TO_CHECKOUT_2)
-
