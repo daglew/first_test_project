@@ -10,4 +10,4 @@ class Ids:
 
 
 def picture_with_text(picture_text):
-    return f"//img[@alt='{picture_text}']"
+    return f"//div[@class='product-image-container']//img[@alt='{picture_text}']"

@@ -41,9 +41,6 @@ class AutomationPracticeOrderMyStorePage:
     def confirm_address(self):
         self.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_BUTTON)
 
-    def pay_method(self, check_pay):
-        self.find_and_click(locator=pay_by_check(check_pay))
-
 
     # def confirm_summary(self):
     #     page = AutomationPracticeOrderMyStorePage(driver=self.driver)

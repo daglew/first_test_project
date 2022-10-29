@@ -138,7 +138,9 @@ class TestOrder(InitializeWebDriver):
         # page = create_and_add_to_card(driver=self.driver, input_keys="Faded Short Sleeve T-shirts")
 
         logging.warning("Confirm summary.")
-        page = create_order(driver=self.driver, input_keys="Faded Short Sleeve T-shirts", check_pay=automation_practice_order_my_my_store_payment_method_xpath.PAY_BY_BANK_INPUT)
+        page = create_order(driver=self.driver,
+                            input_keys="Faded Short Sleeve T-shirts",
+                            payment_method="Pay by bank wire")
         # page = AutomationPracticeOrderMyStorePage(driver=self.driver)
         # page.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_BUTTON)
         #
@@ -238,7 +240,7 @@ class TestOrder(InitializeWebDriver):
         page.find_and_click(locator=automation_practice_order_search_xpath.SEARCH_BUTTON)
 
         logging.warning("Click Add to cart.")
-        page.click_add_to_cart()
+        page.click_add_to_cart(picture='Faded Short Sleeve T-shirts')
 
         logging.warning("Confirm order.")
         page.confirm_order()
@@ -259,24 +261,28 @@ class TestOrder(InitializeWebDriver):
         assert len(check_number_product) == 2, f"Expected result is 2 item list, current result is: {check_number_product}."
 
         logging.warning("Confirm address.")
-        page.confirm_address()
+        page = create_order(driver=self.driver,
+                            input_keys='Faded Short Sleeve T-shirts',
+                            payment_method="Pay by bank wire")
+        # self.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_BUTTON)
+        # page.confirm_address()
 
-        logging.warning("Mark agreement and confirm shipping.")
-        page = AutomationPracticeOrderMyStoreAddressPage(driver=self.driver)
-        page.find_and_click(locator=automation_practice_order_my_store_address_xpath.PROCEED_TO_CHECKOUT_ADDRESS_BUTTON)
-
-        logging.warning("Choose and click payment method.")
-        page = AutomationPracticeOrderMyStorePage(driver=self.driver)
-        page.find_and_click(locator=automation_practice_order_my_store_ids.TEMS_OF_SERVICE_INPUT)
-        page.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_SHIPPING_BUTTON)
-
-        logging.warning("Confirm order.")
-        page = AutomationPracticeOrderMyStorePaymentMethod(driver=self.driver)
-        page.open_page(not_getting_page=True)
-        page.find_and_click(locator=automation_practice_order_my_my_store_payment_method_xpath.PAY_BY_BANK_INPUT)
-
-        page = AutomationPracticeOrderPaymentConfirmMyOrder(driver=self.driver)
-        page.find_and_click(locator=automation_practice_order_payment_confirm_my_order_xpath.I_CONFIRM_MY_ORDER_BUTTON)
+        # logging.warning("Mark agreement and confirm shipping.")
+        # page = AutomationPracticeOrderMyStoreAddressPage(driver=self.driver)
+        # page.find_and_click(locator=automation_practice_order_my_store_address_xpath.PROCEED_TO_CHECKOUT_ADDRESS_BUTTON)
+        #
+        # logging.warning("Choose and click payment method.")
+        # page = AutomationPracticeOrderMyStorePage(driver=self.driver)
+        # page.find_and_click(locator=automation_practice_order_my_store_ids.TEMS_OF_SERVICE_INPUT)
+        # page.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_SHIPPING_BUTTON)
+        #
+        # logging.warning("Confirm order.")
+        # page = AutomationPracticeOrderMyStorePaymentMethod(driver=self.driver)
+        # page.open_page(not_getting_page=True)
+        # page.find_and_click(locator=automation_practice_order_my_my_store_payment_method_xpath.PAY_BY_BANK_INPUT)
+        #
+        # page = AutomationPracticeOrderPaymentConfirmMyOrder(driver=self.driver)
+        # page.find_and_click(locator=automation_practice_order_payment_confirm_my_order_xpath.I_CONFIRM_MY_ORDER_BUTTON)
 
         logging.warning("Back to orders")
         page = AutomationPracticeOrderPaymentBackToOrders(driver=self.driver)

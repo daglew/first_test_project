@@ -25,6 +25,9 @@ class AutomationPracticeOrderMyStorePaymentMethod:
             element.click()
         return element
 
+    def pay_method(self, check_pay):
+        self.find_and_click(locator=pay_by_check(check_pay))
+
     # def pay_method(self, check_pay):
     #     self.find_and_click(locator=pay_by_check(check_pay))
 
