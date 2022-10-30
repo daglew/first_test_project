@@ -1,3 +1,6 @@
+from tests.objects.pages.automation_practice_order_history_page import AutomationPracticeOrderHistoryPage
+from tests.objects.pages.automation_practice_order_payment_back_to_orders_page import \
+    AutomationPracticeOrderPaymentBackToOrders
 from tests.objects.pages.automation_practice_page import AutomationPracticePage
 from tests.commons.pages.automation_practice_order_search import Xpath as automation_practice_order_search_xpath
 from tests.commons.pages.automation_practice_order_search import Ids as automation_practice_order_search_ids
@@ -15,6 +18,8 @@ from tests.commons.pages.automation_practice_order_my_store_address import Xpath
 from tests.commons.pages.automation_practice_order_my_my_store_payment_method import \
     Xpath as automation_practice_order_my_my_store_payment_method_xpath, pay_by_check
 from tests.commons.pages.automation_practice_order_payment_confirm_my_order import Xpath as automation_practice_order_payment_confirm_my_order_xpath
+from tests.commons.pages.automation_practice_order_payment_back_to_orders import Xpath as automation_practice_order_payment_back_to_orders_xpath
+from tests.commons.pages.automation_practice_order_history import Xpath as automation_practice_order_history_xpath
 
 
 def create_user(driver, title, name, last_name, email, password, number_day, number_months, number_years, address,
@@ -79,4 +84,17 @@ def create_order(driver, input_keys: str, payment_method: str):
     page = AutomationPracticeOrderPaymentConfirmMyOrder(driver=driver)
     page.open_page()
     page.find_and_click(locator=automation_practice_order_payment_confirm_my_order_xpath.I_CONFIRM_MY_ORDER_BUTTON)
+    return page
+
+
+def back_orders_and_check_visible_order(driver, number_of_orders: int):
+    page = AutomationPracticeOrderPaymentBackToOrders(driver=driver)
+    page.open_page(not_getting_page=True)
+    page.find_and_click(locator=automation_practice_order_payment_back_to_orders_xpath.BACK_TO_ORDERS)
+
+    page = AutomationPracticeOrderHistoryPage(driver=driver)
+    page.open_page()
+    check_reference = page.find_elements(locator=automation_practice_order_history_xpath.ORDER_REFERENCE)
+    assert len(check_reference) == number_of_orders, f"Expected result is {number_of_orders} " \
+                                                       f"item list, current result is: {len(check_reference)}."
     return page

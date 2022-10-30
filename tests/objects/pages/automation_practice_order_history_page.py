@@ -52,6 +52,14 @@ class AutomationPracticeOrderHistoryPage:
                                   input_keys="Printed Summer Dress")
         self.find_and_click(locator=automation_practice_order_history_xpath.SEARCH_BUTTON)
 
+    def check_alert_warning_visible(self):
+        expected_warning = "//p[@class='alert alert-warning']"
+        alert_warning = self.find_element(locator=automation_practice_order_history_xpath.ALERT_WARNING).text
+        assert alert_warning == expected_warning, f"Expected warning information on the page: {expected_warning} is " \
+                                                  f"not equal to current alert waning {alert_warning} "
+
+
+
 
 
 
