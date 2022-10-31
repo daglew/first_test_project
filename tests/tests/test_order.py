@@ -1,7 +1,7 @@
 import logging
 import uuid
 
-from tests.objects.helpers import create_user, create_and_add_to_card, create_order, back_orders_and_check_visible_order
+from tests.objects.helpers import create_user, create_order, back_orders_and_check_visible_order
 from tests.objects.initialize_webdriver import InitializeWebDriver
 from tests.commons.pages.automation_practice_order_history import Xpath as automation_practice_order_history_xpath
 from tests.commons.pages.automation_practice_order_history import Ids as automation_practice_order_history_ids
@@ -71,13 +71,10 @@ class TestOrder(InitializeWebDriver):
                            sign_up_newsletter=True)
 
         logging.warning("Click Order history and details tab.")
-        page.click_order_history_and_details()
+        page = page.click_order_history_and_details()
 
         logging.warning("Check if alert warning is visible.")
         page.check_alert_warning_visible()
-        # alert_warning = page.find_element(locator=automation_practice_order_history_xpath.ALERT_WARNING).text
-        # assert alert_warning == expected_warning, f"Expected warning information on the page: {expected_warning} is " \
-        #                                           f"not equal to current alert waning {alert_warning} "
 
     """
     1. Create user.
@@ -129,7 +126,6 @@ class TestOrder(InitializeWebDriver):
 
         logging.warning("Click Order history and details tab.")
         page = page.click_order_history_and_details()
-
 
         logging.warning("Confirm summary.")
         create_order(driver=self.driver,
@@ -196,11 +192,10 @@ class TestOrder(InitializeWebDriver):
         page = page.click_order_history_and_details()
 
         logging.warning("Check if alert warning is visible.")
-        alert_warning = page.find_element(locator=automation_practice_order_history_xpath.ALERT_WARNING).text
-        assert alert_warning == expected_warning, f"Expected warning information on the page: {expected_warning} is " \
-                                                  f"not equal to current alert waning {alert_warning} "
+        page.check_alert_warning_visible()
 
         logging.warning("Find Faded Short Sleeve T-shirts.")
+
         page = AutomationPracticeOrderSearch(driver=self.driver)
         page.find_input_send_keys(locator=automation_practice_order_search_ids.INPUT_SEARCH,
                                   input_keys="Faded Short Sleeve T-shirts")

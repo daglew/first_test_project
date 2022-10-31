@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from tests.commons.pages.automation_practice_order_history import Xpath as automation_practice_order_history_xpath
 from tests.commons.pages.automation_practice_order_history import Ids as automation_practice_order_history_ids
+from tests.commons.warnings import Warnings
 
 
 class AutomationPracticeOrderHistoryPage:
@@ -53,10 +54,10 @@ class AutomationPracticeOrderHistoryPage:
         self.find_and_click(locator=automation_practice_order_history_xpath.SEARCH_BUTTON)
 
     def check_alert_warning_visible(self):
-        expected_warning = "//p[@class='alert alert-warning']"
         alert_warning = self.find_element(locator=automation_practice_order_history_xpath.ALERT_WARNING).text
-        assert alert_warning == expected_warning, f"Expected warning information on the page: {expected_warning} is " \
-                                                  f"not equal to current alert waning {alert_warning} "
+        assert alert_warning == Warnings.empty_order_history_warning, f"Expected warning information on the page: " \
+                                                                      f"{Warnings.empty_order_history_warning} is not equal " \
+                                                                      f"to current alert waning {alert_warning} "
 
 
 
