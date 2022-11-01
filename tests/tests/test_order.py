@@ -1,7 +1,7 @@
 import logging
 import uuid
 
-from tests.objects.helpers import create_user, create_order, back_orders_and_check_visible_order
+from tests.objects.helpers import create_user, create_order, back_orders_and_check_visible_order, create_and_add_to_card
 from tests.objects.initialize_webdriver import InitializeWebDriver
 from tests.commons.pages.automation_practice_order_history import Xpath as automation_practice_order_history_xpath
 from tests.commons.pages.automation_practice_order_history import Ids as automation_practice_order_history_ids
@@ -195,40 +195,43 @@ class TestOrder(InitializeWebDriver):
         page.check_alert_warning_visible()
 
         logging.warning("Find Faded Short Sleeve T-shirts.")
+        create_and_add_to_card(driver=self.driver,
+                               input_keys="Faded Short Sleeve T-shirts")
 
-        page = AutomationPracticeOrderSearch(driver=self.driver)
-        page.find_input_send_keys(locator=automation_practice_order_search_ids.INPUT_SEARCH,
-                                  input_keys="Faded Short Sleeve T-shirts")
-        page.find_and_click(locator=automation_practice_order_search_xpath.SEARCH_BUTTON)
+        create_and_add_to_card(driver=self.driver,
+                               input_keys="Faded Blouses")
 
-        logging.warning("Click Add to cart.")
-        page.click_add_to_cart(picture='Faded Short Sleeve T-shirts')
+        create_order(driver=self.driver,
+                     payment_method="Pay by bank wire",
+                     add_to_card=False)
 
-        logging.warning("Confirm order.")
-        page.confirm_order()
-
-        logging.warning("Find Faded Blouses.")
-        page.find_faded_blouses()
-
-        logging.warning("Click Add to cart.")
-        page = AutomationPracticeSearchBlouses(driver=self.driver)
-        page.hover_element_by_mouse(locator=automation_practice_order_search_blouses_add_xpath.PICTURE_BLOUSE)
-
-        logging.warning("Confirm order.")
-        page.confirm_order_blouse()
-
-        logging.warning("Confirm summary.")
-        page = AutomationPracticeOrderMyStorePage(driver=self.driver)
-        check_number_product = page.find_elements(locator=automation_practice_order_my_store_xpath.PRODUCT)
-        assert len(check_number_product) == 2, f"Expected result is 2 item list, current result is: {check_number_product}."
-
-        logging.warning("Confirm address.")
-        page = create_order(driver=self.driver,
-                            input_keys='Faded Short Sleeve T-shirts',
-                            payment_method="Pay by bank wire")
-        # self.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_BUTTON)
+        # logging.warning("Find Faded Blouses.")
+        # page = AutomationPracticeOrderPaymentConfirmMyOrder(driver=self.driver)
+        # page.open_page()
+        # page.find_input_send_keys(locator=automation_practice_order_search_ids.INPUT_SEARCH, input_keys="Blouses")
+        # page.find_and_click(locator=automation_practice_order_search_xpath.SEARCH_BUTTON)
+        #
+        # # page.find_faded_blouses()
+        #
+        # logging.warning("Click Add to cart.")
+        # page = AutomationPracticeSearchBlouses(driver=self.driver)
+        # page.hover_element_by_mouse(locator=automation_practice_order_search_blouses_add_xpath.PICTURE_BLOUSE)
+        #
+        # logging.warning("Confirm order.")
+        # page.confirm_order_blouse()
+        #
+        # logging.warning("Confirm summary.")
+        # page = AutomationPracticeOrderMyStorePage(driver=self.driver)
+        # check_number_product = page.find_elements(locator=automation_practice_order_my_store_xpath.PRODUCT)
+        # assert len(check_number_product) == 2, f"Expected result is 2 item list, current result is: {len(check_number_product)}."
+        #
+        # logging.warning("Confirm address.")
+        # # page = create_order(driver=self.driver,
+        # #                     input_keys='Faded Short Sleeve T-shirts',
+        # #                     payment_method="Pay by bank wire")
+        # page.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_BUTTON)
         # page.confirm_address()
-
+        #
         # logging.warning("Mark agreement and confirm shipping.")
         # page = AutomationPracticeOrderMyStoreAddressPage(driver=self.driver)
         # page.find_and_click(locator=automation_practice_order_my_store_address_xpath.PROCEED_TO_CHECKOUT_ADDRESS_BUTTON)
@@ -245,17 +248,17 @@ class TestOrder(InitializeWebDriver):
         #
         # page = AutomationPracticeOrderPaymentConfirmMyOrder(driver=self.driver)
         # page.find_and_click(locator=automation_practice_order_payment_confirm_my_order_xpath.I_CONFIRM_MY_ORDER_BUTTON)
-
-        logging.warning("Back to orders")
-        page = AutomationPracticeOrderPaymentBackToOrders(driver=self.driver)
-        page.open_page(not_getting_page=True)
-        page.find_and_click(locator=automation_practice_order_payment_back_to_orders_xpath.BACK_TO_ORDERS)
+        #
+        # logging.warning("Back to orders")
+        # page = AutomationPracticeOrderPaymentBackToOrders(driver=self.driver)
+        # page.open_page(not_getting_page=True)
+        # page.find_and_click(locator=automation_practice_order_payment_back_to_orders_xpath.BACK_TO_ORDERS)
 
         logging.warning("Check if new order is visible in order reference column.")
         page = AutomationPracticeOrderHistoryPage(driver=self.driver)
         page.open_page()
         check_reference = page.find_elements(locator=automation_practice_order_history_xpath.ORDER_REFERENCE)
-        assert len(check_reference) == 1, f"Expected result is 1 item list, current result is: {check_reference}."
+        assert len(check_reference) == 1, f"Expected result is 1 item list, current result is: {len(check_reference)}."
 
     """
     1. Create user.

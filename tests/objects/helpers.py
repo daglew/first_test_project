@@ -65,8 +65,9 @@ def create_and_add_to_card(driver, input_keys: str):
     return page
 
 
-def create_order(driver, input_keys: str, payment_method: str):
-    create_and_add_to_card(driver=driver, input_keys=input_keys)
+def create_order(driver, payment_method: str, add_to_card=True, input_keys: str = None):
+    if add_to_card:
+        create_and_add_to_card(driver=driver, input_keys=input_keys)
     page = AutomationPracticeOrderMyStorePage(driver=driver)
     page.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_BUTTON)
 
