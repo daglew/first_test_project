@@ -1,6 +1,7 @@
 import logging
 import uuid
 
+from tests.commons.data import TestData
 from tests.objects.helpers import create_user, create_order, back_orders_and_check_visible_order, create_and_add_to_card
 from tests.objects.initialize_webdriver import InitializeWebDriver
 from tests.commons.pages.automation_practice_order_history import Xpath as automation_practice_order_history_xpath
@@ -41,28 +42,27 @@ class TestOrder(InitializeWebDriver):
         logging.warning("Enter your Personal Information, Address and Contact info.")
         logging.warning("Validate that user is created.")
         logging.warning("Create user.")
-
         uniqe_id = str(uuid.uuid4())
         generated_email = f"kazia{uniqe_id[:5]}@gmail.com"
         expected_warning = "You have not placed any orders."
 
         page = create_user(driver=self.driver,
-                           title="Mrs",
-                           name="Basia",
-                           last_name="Kasia",
+                           title=TestData.TITLE,
+                           name=TestData.NAME,
+                           last_name=TestData.LAST_NAME,
                            email=generated_email,
-                           password="xyzbgj45",
-                           number_day=4,
-                           number_months=7,
-                           number_years=2002,
-                           address="zielona",
-                           city="gdansk",
-                           state="alaska",
-                           zip_code="00000",
-                           information="...",
-                           home_number="89765423",
-                           selector_country="United States",
-                           mobile_phone="123456789",
+                           password=TestData.PASSWORD,
+                           number_day=TestData.NUMBER_DAY,
+                           number_months=TestData.NUMBER_MONTHS,
+                           number_years=TestData.NUMBER_YEARS,
+                           address=TestData.ADDRESS,
+                           city=TestData.CITY,
+                           state=TestData.STATE,
+                           zip_code=TestData.ZIP_CODE,
+                           information=TestData.INFORMATION,
+                           home_number=TestData.HOME_NUMBER,
+                           selector_country=TestData.SELECTOR_CUNTRY,
+                           mobile_phone=TestData.MOBILE_PHONE,
                            receive_special_offers=True,
                            sign_up_newsletter=True)
 
@@ -101,22 +101,22 @@ class TestOrder(InitializeWebDriver):
         expected_warning = "You have not placed any orders."
 
         page = create_user(driver=self.driver,
-                           title="Mrs",
-                           name="Basia",
-                           last_name="Kasia",
+                           title=TestData.TITLE,
+                           name=TestData.NAME,
+                           last_name=TestData.LAST_NAME,
                            email=generated_email,
-                           password="xyzbgj45",
-                           number_day=4,
-                           number_months=7,
-                           number_years=2002,
-                           address="zielona",
-                           city="gdansk",
-                           state="alaska",
-                           zip_code="00000",
-                           information="...",
-                           home_number="89765423",
-                           selector_country="United States",
-                           mobile_phone="123456789",
+                           password=TestData.PASSWORD,
+                           number_day=TestData.NUMBER_DAY,
+                           number_months=TestData.NUMBER_MONTHS,
+                           number_years=TestData.NUMBER_YEARS,
+                           address=TestData.ADDRESS,
+                           city=TestData.CITY,
+                           state=TestData.STATE,
+                           zip_code=TestData.ZIP_CODE,
+                           information=TestData.INFORMATION,
+                           home_number=TestData.HOME_NUMBER,
+                           selector_country=TestData.SELECTOR_CUNTRY,
+                           mobile_phone=TestData.MOBILE_PHONE,
                            receive_special_offers=True,
                            sign_up_newsletter=True)
 
@@ -125,12 +125,12 @@ class TestOrder(InitializeWebDriver):
 
         logging.warning("Confirm summary.")
         create_order(driver=self.driver,
-                     input_keys="Faded Short Sleeve T-shirts",
-                     payment_method="Pay by bank wire")
+                     input_keys=TestData.ORDER_INPUT_KEYS,
+                     payment_method=TestData.PAYMENT_METHOD)
 
         logging.warning("Back to orders")
         back_orders_and_check_visible_order(driver=self.driver,
-                                            number_of_orders=1)
+                                            number_of_orders=TestData.VISIBLE_ORDER_1)
 
     """
     1. Create user.
@@ -165,22 +165,22 @@ class TestOrder(InitializeWebDriver):
         expected_warning = "You have not placed any orders."
 
         page = create_user(driver=self.driver,
-                           title="Mrs",
-                           name="Basia",
-                           last_name="Kasia",
+                           title=TestData.TITLE,
+                           name=TestData.NAME,
+                           last_name=TestData.LAST_NAME,
                            email=generated_email,
-                           password="xyzbgj45",
-                           number_day=4,
-                           number_months=7,
-                           number_years=2002,
-                           address="zielona",
-                           city="gdansk",
-                           state="alaska",
-                           zip_code="00000",
-                           information="...",
-                           home_number="89765423",
-                           selector_country="United States",
-                           mobile_phone="123456789",
+                           password=TestData.PASSWORD,
+                           number_day=TestData.NUMBER_DAY,
+                           number_months=TestData.NUMBER_MONTHS,
+                           number_years=TestData.NUMBER_YEARS,
+                           address=TestData.ADDRESS,
+                           city=TestData.CITY,
+                           state=TestData.STATE,
+                           zip_code=TestData.ZIP_CODE,
+                           information=TestData.INFORMATION,
+                           home_number=TestData.HOME_NUMBER,
+                           selector_country=TestData.SELECTOR_CUNTRY,
+                           mobile_phone=TestData.MOBILE_PHONE,
                            receive_special_offers=True,
                            sign_up_newsletter=True)
 
@@ -191,19 +191,19 @@ class TestOrder(InitializeWebDriver):
         page.check_alert_warning_visible()
 
         create_and_add_to_card(driver=self.driver,
-                               input_keys="Blouse")
+                               input_keys=TestData.ORDER_INPUT_KEYS_2)
 
         logging.warning("Find Faded Short Sleeve T-shirts.")
         create_and_add_to_card(driver=self.driver,
-                               input_keys="Faded Short Sleeve T-shirts")
+                               input_keys=TestData.ORDER_INPUT_KEYS)
 
         create_order(driver=self.driver,
-                     payment_method="Pay by bank wire",
+                     payment_method=TestData.PAYMENT_METHOD,
                      add_to_card=False)
 
         logging.warning("Check if new order is visible in order reference column.")
         back_orders_and_check_visible_order(driver=self.driver,
-                                            number_of_orders=1)
+                                            number_of_orders=TestData.VISIBLE_ORDER_1)
 
     """
     1. Create user.
@@ -245,47 +245,41 @@ class TestOrder(InitializeWebDriver):
         expected_warning = "You have not placed any orders."
 
         page = create_user(driver=self.driver,
-                           title="Mrs",
-                           name="Basia",
-                           last_name="Kasia",
+                           title=TestData.TITLE,
+                           name=TestData.NAME,
+                           last_name=TestData.LAST_NAME,
                            email=generated_email,
-                           password="xyzbgj45",
-                           number_day=4,
-                           number_months=7,
-                           number_years=2002,
-                           address="zielona",
-                           city="gdansk",
-                           state="alaska",
-                           zip_code="00000",
-                           information="...",
-                           home_number="89765423",
-                           selector_country="United States",
-                           mobile_phone="123456789",
+                           password=TestData.PASSWORD,
+                           number_day=TestData.NUMBER_DAY,
+                           number_months=TestData.NUMBER_MONTHS,
+                           number_years=TestData.NUMBER_YEARS,
+                           address=TestData.ADDRESS,
+                           city=TestData.CITY,
+                           state=TestData.STATE,
+                           zip_code=TestData.ZIP_CODE,
+                           information=TestData.INFORMATION,
+                           home_number=TestData.HOME_NUMBER,
+                           selector_country=TestData.SELECTOR_CUNTRY,
+                           mobile_phone=TestData.MOBILE_PHONE,
                            receive_special_offers=True,
                            sign_up_newsletter=True)
 
-        logging.warning("Click Order history and details tab.")
         page = page.click_order_history_and_details()
 
-        logging.warning("Check if alert warning is visible.")
         page.check_alert_warning_visible()
 
-        logging.warning("Find Faded Short Sleeve T-shirts.")
         create_order(driver=self.driver,
-                     input_keys="Faded Short Sleeve T-shirts",
-                     payment_method="Pay by bank wire")
+                     input_keys=TestData.ORDER_INPUT_KEYS,
+                     payment_method=TestData.PAYMENT_METHOD)
 
-        logging.warning("Back to orders")
         back_orders_and_check_visible_order(driver=self.driver,
-                                            number_of_orders=1)
+                                            number_of_orders=TestData.VISIBLE_ORDER_1)
 
-        logging.warning("Find Printed Summer Dress.")
         page.find_printed_summer_dress()
 
-        logging.warning("Click Add to cart.")
         create_order(driver=self.driver,
-                     input_keys="Printed Chiffon Dress",
-                     payment_method="Pay by bank wire")
+                     input_keys=TestData.ORDER_INPUT_KEYS,
+                     payment_method=TestData.PAYMENT_METHOD)
 
         back_orders_and_check_visible_order(driver=self.driver,
-                                            number_of_orders=2)
+                                            number_of_orders=TestData.VISIBLE_ORDER_2)

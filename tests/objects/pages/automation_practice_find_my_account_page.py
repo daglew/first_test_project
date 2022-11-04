@@ -2,7 +2,6 @@ from selenium.webdriver.common.by import By
 
 from tests.commons.pages.automation_practice_find_my_account import Xpath as automation_practice_find_my_account_xpath
 from tests.objects.pages.automation_practice_order_history_page import AutomationPracticeOrderHistoryPage
-from tests.commons.pages.automation_practice_order_history import Xpath as automation_practice_order_history_xpath
 
 
 class AutomationPracticeFindMyAccount:
