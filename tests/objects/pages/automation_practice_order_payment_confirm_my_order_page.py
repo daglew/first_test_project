@@ -27,4 +27,3 @@ class AutomationPracticeOrderPaymentConfirmMyOrder:
         element.clear()
         element.send_keys(input_keys)
         return element
-

@@ -24,5 +24,5 @@ source venv/Scripts/activate
 pip install -r tests/requirements.txt
 
 6. set up interpreter
-PyCharm -> File -> Settings -> Python interpreter ->zębatka -> Add -> Existing environment -> ...  -> Interpreter -> <path>/venv/Scripts/python
+PyCharm -> File -> Settings -> Python interpreter -> Gear -> Add -> Existing environment -> ...  -> Interpreter -> <path>/venv/Scripts/python
 ``` 

@@ -27,5 +27,3 @@ class AutomationPracticeOrderMyStoreAddressPage:
     def mark_agreement_and_confirm_shipping(self):
         self.find_and_click(locator=automation_practice_order_my_store_address_ids.TEMS_OF_SERVICE_INPUT)
         self.find_and_click(locator=automation_practice_order_my_store_address_xpath.PROCEDER_CHECKOUT_SHIPPING)
-
-

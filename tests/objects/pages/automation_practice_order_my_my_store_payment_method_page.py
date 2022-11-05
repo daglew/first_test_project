@@ -27,15 +27,3 @@ class AutomationPracticeOrderMyStorePaymentMethod:
 
     def pay_method(self, check_pay):
         self.find_and_click(locator=pay_by_check(check_pay))
-
-    # def pay_method(self, check_pay):
-    #     self.find_and_click(locator=pay_by_check(check_pay))
-
-    # def payment_method2(self, element: str):
-    #     if element == "Pay by bank wire":
-    #         self.find_and_click(locator=automation_practice_order_my_my_store_payment_method_xpath.PAY_BY_BANK_INPUT)
-    #     elif element == "Pay by check":
-    #         self.find_and_click(locator=automation_practice_order_my_my_store_payment_method_xpath.PAY_BY_CHECK_INPUT)
-    #     else:
-    #         raise Exception(f"Wrong value should be 'Pay by bank wire' or 'Pay by check'.")
-

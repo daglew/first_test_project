@@ -13,7 +13,7 @@ Steps to Automate:
 import logging
 import uuid
 
-from tests.commons.emails import Email
+from tests.commons.data import TestData
 from tests.objects.helpers import create_user
 from tests.objects.initialize_webdriver import InitializeWebDriver
 from tests.objects.pages.automation_practice_controller_address_page import AutomationPraticeControllerAddressPage
@@ -33,23 +33,26 @@ class TestCreateUser(InitializeWebDriver):
         logging.warning("Click on Create an Account button.")
         logging.warning("Enter your Personal Information, Address and Contact info.")
         logging.warning("Validate that user is created.")
+        uniqe_id = str(uuid.uuid4())
+        generated_email = f"kazia{uniqe_id[:5]}@gmail.com"
+
         create_user(driver=self.driver,
-                    title="Mrs",
-                    name="Basia",
-                    last_name="Kasia",
-                    email=Email.generated_email,
-                    password="xyzbgj45",
-                    number_day=4,
-                    number_months=7,
-                    number_years=2002,
-                    address="zielona",
-                    city= "gdansk",
-                    state="alaska",
-                    zip_code="00000",
-                    information="...",
-                    home_number="89765423",
-                    selector_country="United States",
-                    mobile_phone="123456789",
+                    title=TestData.TITLE,
+                    name=TestData.NAME,
+                    last_name=TestData.LAST_NAME,
+                    email=generated_email,
+                    password=TestData.PASSWORD,
+                    number_day=TestData.NUMBER_DAY,
+                    number_months=TestData.NUMBER_MONTHS,
+                    number_years=TestData.NUMBER_YEARS,
+                    address=TestData.ADDRESS,
+                    city=TestData.CITY,
+                    state=TestData.STATE,
+                    zip_code=TestData.ZIP_CODE,
+                    information=TestData.INFORMATION,
+                    home_number=TestData.HOME_NUMBER,
+                    selector_country=TestData.SELECTOR_CUNTRY,
+                    mobile_phone=TestData.MOBILE_PHONE,
                     receive_special_offers=True,
                     sign_up_newsletter=True)
 
@@ -80,24 +83,23 @@ class TestCreateUser(InitializeWebDriver):
 
         uniqe_id = str(uuid.uuid4())
         generated_email = f"kazia{uniqe_id[:5]}@gmail.com"
-
         page = create_user(driver=self.driver,
-                           title="Mrs",
-                           name="Basia",
-                           last_name="Kasia",
+                           title=TestData.TITLE,
+                           name=TestData.NAME,
+                           last_name=TestData.LAST_NAME,
                            email=generated_email,
-                           password="xyzbgj45",
-                           number_day=4,
-                           number_months=7,
-                           number_years=2002,
-                           address="zielona",
-                           city="gdansk",
-                           state="alaska",
-                           zip_code="00000",
-                           information="...",
-                           home_number="89765423",
-                           selector_country="United States",
-                           mobile_phone="123456789",
+                           password=TestData.PASSWORD,
+                           number_day=TestData.NUMBER_DAY,
+                           number_months=TestData.NUMBER_MONTHS,
+                           number_years=TestData.NUMBER_YEARS,
+                           address=TestData.ADDRESS,
+                           city=TestData.CITY,
+                           state=TestData.STATE,
+                           zip_code=TestData.ZIP_CODE,
+                           information=TestData.INFORMATION,
+                           home_number=TestData.HOME_NUMBER,
+                           selector_country=TestData.SELECTOR_CUNTRY,
+                           mobile_phone=TestData.MOBILE_PHONE,
                            receive_special_offers=True,
                            sign_up_newsletter=True)
 
@@ -141,30 +143,30 @@ class TestCreateUser(InitializeWebDriver):
 
         uniqe_id = str(uuid.uuid4())
         generated_email = f"kazia{uniqe_id[:5]}@gmail.com"
-        name = "Basia"
-        last_name = "Kasia"
-        day = 4
-        month = 7
-        year = 2002
-        password = "xyzbgj45"
-        radio_button_title = "Mrs"
+        name = TestData.NAME
+        last_name = TestData.LAST_NAME
+        day = TestData.NUMBER_DAY
+        month = TestData.NUMBER_MONTHS
+        year = TestData.NUMBER_YEARS
+        password = TestData.PASSWORD
+        radio_button_title = TestData.TITLE
         page = create_user(driver=self.driver,
-                           title=radio_button_title,
-                           name=name,
-                           last_name=last_name,
+                           title=TestData.TITLE,
+                           name=TestData.NAME,
+                           last_name=TestData.LAST_NAME,
                            email=generated_email,
-                           password=password,
-                           number_day=day,
-                           number_months=month,
-                           number_years=year,
-                           address="zielona",
-                           city="gdansk",
-                           state="alaska",
-                           zip_code="00000",
-                           information="...",
-                           home_number="89765423",
-                           selector_country="United States",
-                           mobile_phone="123456789",
+                           password=TestData.PASSWORD,
+                           number_day=TestData.NUMBER_DAY,
+                           number_months=TestData.NUMBER_MONTHS,
+                           number_years=TestData.NUMBER_YEARS,
+                           address=TestData.ADDRESS,
+                           city=TestData.CITY,
+                           state=TestData.STATE,
+                           zip_code=TestData.ZIP_CODE,
+                           information=TestData.INFORMATION,
+                           home_number=TestData.HOME_NUMBER,
+                           selector_country=TestData.SELECTOR_CUNTRY,
+                           mobile_phone=TestData.MOBILE_PHONE,
                            receive_special_offers=True,
                            sign_up_newsletter=True)
 

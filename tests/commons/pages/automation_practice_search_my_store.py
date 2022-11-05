@@ -6,4 +6,3 @@ class Xpath:
 
 class Ids:
     pass
-
