@@ -4,7 +4,6 @@
 ## Table of contents
 * [Installation virtual environment](#installation-virtual-environment-venv)
 
-``` 
 ## Installation virtual environment (venv)
 
 ```
