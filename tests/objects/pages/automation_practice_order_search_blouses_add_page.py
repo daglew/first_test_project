@@ -1,13 +1,13 @@
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
-from tests.commons.pages.automation_practice_order_my_store import Xpath as automation_practice_order_my_store_xpath
+from tests.commons.pages.automation_practice_order_search_blouses_add import Xpath as automation_practice_order_search_blouses_add_xpath
 
 
-class AutomationPracticeOrderMyStorePage:
-
+class AutomationPracticeSearchBlouses:
     def __init__(self, driver):
         self.driver = driver
-        self.page = "http://automationpractice.com/index.php?controller=order"
-        self.title = "Order - My Store"
+        self.page = "http://automationpractice.com/index.php?controller=search&orderby=position&orderway=desc&search_query=Blouses&submit_search="
+        self.title = "Search - My Store"
 
     def open_page(self):
         self.driver.get(self.page)
@@ -30,12 +30,11 @@ class AutomationPracticeOrderMyStorePage:
             element = self.driver.find_element(By.ID, locator)
         return element
 
-    def find_elements(self, locator: str):
-        if locator.startswith("//"):
-            elements = self.driver.find_elements(By.XPATH, locator)
-        else:
-            elements = self.driver.find_elements(By.ID, locator)
-        return elements
+    def hover_element_by_mouse(self, locator):
+        action = ActionChains(driver=self.driver)
+        element = self.find_element(locator)
+        action.move_to_element(element).perform()
 
-    def confirm_address(self):
-        self.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_BUTTON)
+    def confirm_order_blouse(self):
+        self.find_and_click(locator=automation_practice_order_search_blouses_add_xpath.ADD_BLOUSE_BUTTON)
+        self.find_and_click(locator=automation_practice_order_search_blouses_add_xpath.PROCEED_TO_CHECKOUT_2)

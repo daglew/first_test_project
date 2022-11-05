@@ -1,5 +1,7 @@
 from selenium.webdriver.common.by import By
 from tests.commons.pages.automation_practice_order_history import Xpath as automation_practice_order_history_xpath
+from tests.commons.pages.automation_practice_order_history import Ids as automation_practice_order_history_ids
+from tests.commons.warnings import Warnings
 
 
 class AutomationPracticeOrderHistoryPage:
@@ -23,7 +25,7 @@ class AutomationPracticeOrderHistoryPage:
             element.click()
         return element
 
-    def click_search_button(self, locator):
+    def click_search_button(self):
         self.find_and_click(locator=automation_practice_order_history_xpath.SEARCH_BUTTON)
 
     def find_element(self, locator: str):
@@ -32,6 +34,35 @@ class AutomationPracticeOrderHistoryPage:
         else:
             element = self.driver.find_element(By.ID, locator)
         return element
+
+    def find_elements(self, locator: str):
+        if locator.startswith("//"):
+            elements = self.driver.find_elements(By.XPATH, locator)
+        else:
+            elements = self.driver.find_elements(By.ID, locator)
+        return elements
+
+    def find_input_send_keys(self, locator: str, input_keys: str) -> object:
+        element = self.find_and_click(locator=locator)
+        element.clear()
+        element.send_keys(input_keys)
+        return element
+
+    def find_printed_summer_dress(self):
+        self.find_input_send_keys(locator=automation_practice_order_history_ids.INPUT_SEARCH,
+                                  input_keys="Printed Summer Dress")
+        self.find_and_click(locator=automation_practice_order_history_xpath.SEARCH_BUTTON)
+
+    def check_alert_warning_visible(self):
+        alert_warning = self.find_element(locator=automation_practice_order_history_xpath.ALERT_WARNING).text
+        assert alert_warning == Warnings.empty_order_history_warning, f"Expected warning information on the page: " \
+                                                                      f"{Warnings.empty_order_history_warning} is not equal " \
+                                                                      f"to current alert waning {alert_warning} "
+
+
+
+
+
 
 
 

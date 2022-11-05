@@ -1,32 +1,10 @@
 import logging
 import uuid
 
-from tests.objects.helpers import create_user
+from tests.commons.data import TestData
+from tests.objects.helpers import create_user, create_order, back_orders_and_check_visible_order, create_and_add_to_card
 from tests.objects.initialize_webdriver import InitializeWebDriver
-from tests.commons.pages.automation_practice_order_history import Xpath as automation_practice_order_history_xpath
-from tests.commons.pages.automation_practice_order_history import Ids as automation_practice_order_history_ids
-from tests.commons.pages.automation_practice_order_search import Xpath as automation_practice_order_search_xpath
-from tests.objects.pages.automation_practice_back_to_order_history_page import AutomationPracticeBackToOrderHistory
-from tests.objects.pages.automation_practice_order_my_my_store_payment_method_page import \
-    AutomationPracticeOrderMyStorePaymentMethod
-from tests.objects.pages.automation_practice_order_my_store_address_page import \
-    AutomationPracticeOrderMyStoreAddressPage
-from tests.objects.pages.automation_practice_order_my_store_page import AutomationPracticeOrderMyStorePage
-from tests.objects.pages.automation_practice_order_my_store_shipping_page import \
-    AutomationPracticeOrderMyStoreShippingPage
-from tests.objects.pages.automation_practice_order_payment_back_to_orders_page import \
-    AutomationPracticeOrderPaymentBackToOrders
-from tests.objects.pages.automation_practice_order_payment_confirm_my_order_page import \
-    AutomationPracticeOrderPaymentConfirmMyOrder
-from tests.objects.pages.automation_practice_order_search_page import AutomationPracticeOrderSearch
-from tests.commons.pages.automation_practice_order_my_store import Xpath as automation_practice_order_my_store_xpath
-from tests.commons.pages.automation_practice_order_my_store_address import Xpath as automation_practice_order_my_store_address_xpath
-from tests.commons.pages.automation_practice_order_my_store_shipping import Ids as automation_practice_order_my_store_shipping_ids
-from tests.commons.pages.automation_practice_order_my_store_shipping import Xpath as automation_practice_order_my_store_shipping_xpath
-from tests.commons.pages.automation_practice_order_my_my_store_payment_method import Xpath as automation_practice_order_my_my_store_payment_method_xpath
-from tests.commons.pages.automation_practice_order_payment_confirm_my_order import Xpath as automation_practice_order_payment_confirm_my_order_xpath
-from tests.commons.pages.automation_practice_order_payment_back_to_orders import Xpath as automation_practice_order_payment_back_to_orders_xpath
-from tests.commons.pages.automation_practice_back_to_order_history import Xpath as automation_practice_back_to_order_history_xpath
+
 
 class TestOrder(InitializeWebDriver):
 
@@ -36,43 +14,35 @@ class TestOrder(InitializeWebDriver):
     3. Check if alert warning is visible.
     """
     def test_order_history_no_item_ordered(self):
-        logging.warning("Open this url  http://automationpractice.com/index.php and maximalize window, check title")
-        logging.warning("Click on sign in link.")
-        logging.warning("Enter your email address in 'Create an account' section.")
-        logging.warning("Click on Create an Account button.")
-        logging.warning("Enter your Personal Information, Address and Contact info.")
-        logging.warning("Validate that user is created.")
         logging.warning("Create user.")
-
         uniqe_id = str(uuid.uuid4())
         generated_email = f"kazia{uniqe_id[:5]}@gmail.com"
-        expected_warning = "You have not placed any orders."
 
         page = create_user(driver=self.driver,
-                           title="Mrs",
-                           name="Basia",
-                           last_name="Kasia",
+                           title=TestData.TITLE,
+                           name=TestData.NAME,
+                           last_name=TestData.LAST_NAME,
                            email=generated_email,
-                           password="xyzbgj45",
-                           number_day=4,
-                           number_months=7,
-                           number_years=2002,
-                           address="zielona",
-                           city="gdansk",
-                           state="alaska",
-                           zip_code="00000",
-                           information="...",
-                           home_number="89765423",
-                           selector_country="United States",
-                           mobile_phone="123456789",
+                           password=TestData.PASSWORD,
+                           number_day=TestData.NUMBER_DAY,
+                           number_months=TestData.NUMBER_MONTHS,
+                           number_years=TestData.NUMBER_YEARS,
+                           address=TestData.ADDRESS,
+                           city=TestData.CITY,
+                           state=TestData.STATE,
+                           zip_code=TestData.ZIP_CODE,
+                           information=TestData.INFORMATION,
+                           home_number=TestData.HOME_NUMBER,
+                           selector_country=TestData.SELECTOR_CUNTRY,
+                           mobile_phone=TestData.MOBILE_PHONE,
                            receive_special_offers=True,
                            sign_up_newsletter=True)
+
         logging.warning("Click Order history and details tab.")
-        page.click_order_history_and_details()
+        page = page.click_order_history_and_details()
+
         logging.warning("Check if alert warning is visible.")
-        alert_warning = page.find_element(locator=automation_practice_order_history_xpath.ALERT_WARNING).text
-        assert alert_warning == expected_warning, f"Expected warning information on the page: {expected_warning} is " \
-                                                  f"not equal to current alert waning {alert_warning} "
+        page.check_alert_warning_visible()
 
     """
     1. Create user.
@@ -90,35 +60,27 @@ class TestOrder(InitializeWebDriver):
     13. Check if new order is visible in order reference column.
     """
     def test_order_history_item_ordered(self):
-        logging.warning("Open this url  http://automationpractice.com/index.php and maximalize window, check title")
-        logging.warning("Click on sign in link.")
-        logging.warning("Enter your email address in 'Create an account' section.")
-        logging.warning("Click on Create an Account button.")
-        logging.warning("Enter your Personal Information, Address and Contact info.")
-        logging.warning("Validate that user is created.")
         logging.warning("Create user.")
-
         uniqe_id = str(uuid.uuid4())
         generated_email = f"kazia{uniqe_id[:5]}@gmail.com"
-        expected_warning = "You have not placed any orders."
 
         page = create_user(driver=self.driver,
-                           title="Mrs",
-                           name="Basia",
-                           last_name="Kasia",
+                           title=TestData.TITLE,
+                           name=TestData.NAME,
+                           last_name=TestData.LAST_NAME,
                            email=generated_email,
-                           password="xyzbgj45",
-                           number_day=4,
-                           number_months=7,
-                           number_years=2002,
-                           address="zielona",
-                           city="gdansk",
-                           state="alaska",
-                           zip_code="00000",
-                           information="...",
-                           home_number="89765423",
-                           selector_country="United States",
-                           mobile_phone="123456789",
+                           password=TestData.PASSWORD,
+                           number_day=TestData.NUMBER_DAY,
+                           number_months=TestData.NUMBER_MONTHS,
+                           number_years=TestData.NUMBER_YEARS,
+                           address=TestData.ADDRESS,
+                           city=TestData.CITY,
+                           state=TestData.STATE,
+                           zip_code=TestData.ZIP_CODE,
+                           information=TestData.INFORMATION,
+                           home_number=TestData.HOME_NUMBER,
+                           selector_country=TestData.SELECTOR_CUNTRY,
+                           mobile_phone=TestData.MOBILE_PHONE,
                            receive_special_offers=True,
                            sign_up_newsletter=True)
 
@@ -126,54 +88,24 @@ class TestOrder(InitializeWebDriver):
         page = page.click_order_history_and_details()
 
         logging.warning("Check if alert warning is visible.")
-        alert_warning = page.find_element(locator=automation_practice_order_history_xpath.ALERT_WARNING).text
-        assert alert_warning == expected_warning, f"Expected warning information on the page: {expected_warning} is " \
-                                                  f"not equal to current alert waning {alert_warning} "
+        page.check_alert_warning_visible()
 
         logging.warning("Find Faded Short Sleeve T-shirts.")
-        page = AutomationPracticeOrderSearch(driver=self.driver)
-        page.find_input_send_keys(locator=automation_practice_order_history_ids.INPUT_SEARCH, input_keys="Faded Short Sleeve T-shirts")
-        page.find_and_click(locator=automation_practice_order_history_xpath.SEARCH_BUTTON)
-
         logging.warning("Click Add to cart.")
-        page.hover_element_by_mouse(locator=automation_practice_order_search_xpath.PICTURE)
-        page.find_and_click(locator=automation_practice_order_search_xpath.ADD_TO_CART_BUTTON)
-
         logging.warning("Confirm order.")
-        page.find_and_click(locator=automation_practice_order_search_xpath.PROCEED_TO_CHECKOUT)
-
         logging.warning("Confirm summary.")
-        page = AutomationPracticeOrderMyStorePage(driver=self.driver)
-        page.find_and_click(locator=automation_practice_order_my_store_xpath.PROCEED_TO_CHECKOUT_BUTTON)
-
+        logging.warning("Confirm address.")
         logging.warning("Mark agreement and confirm shipping.")
-        page = AutomationPracticeOrderMyStoreAddressPage(driver=self.driver)
-        page.find_and_click(locator=automation_practice_order_my_store_address_xpath.PROCEED_TO_CHECKOUT_ADDRESS_BUTTON)
-
         logging.warning("Choose and click payment method.")
-        page = AutomationPracticeOrderMyStoreShippingPage(driver=self.driver)
-        page.find_and_click(locator=automation_practice_order_my_store_shipping_ids.TEMS_OF_SERVICE_INPUT)
-        page.find_and_click(locator=automation_practice_order_my_store_shipping_xpath.PROCEED_TO_CHECKOUT_SHIPPING_BUTTON)
-
         logging.warning("Confirm order.")
-        page = AutomationPracticeOrderMyStorePaymentMethod(driver=self.driver)
-        page.open_page(not_getting_page=True)
-        page.find_and_click(locator=automation_practice_order_my_my_store_payment_method_xpath.PAY_BY_BANK_INPUT)
-
-        page = AutomationPracticeOrderPaymentConfirmMyOrder(driver=self.driver)
-        page.open_page()
-        page.find_and_click(locator=automation_practice_order_payment_confirm_my_order_xpath.I_CONFIRM_MY_ORDER_BUTTON)
+        create_order(driver=self.driver,
+                     input_keys=TestData.ORDER_INPUT_KEYS,
+                     payment_method=TestData.PAYMENT_METHOD)
 
         logging.warning("Back to orders")
-        page = AutomationPracticeOrderPaymentBackToOrders(driver=self.driver)
-        page.open_page(not_getting_page=True)
-        page.find_and_click(locator=automation_practice_order_payment_back_to_orders_xpath.BACK_TO_ORDERS)
-
         logging.warning("Check if new order is visible in order reference column.")
-        page = AutomationPracticeBackToOrderHistory(driver=self.driver)
-        page.open_page()
-        check_reference = page.find_elements(locator=automation_practice_back_to_order_history_xpath.ORDER_REFERENCE)
-        assert len(check_reference) == 1, f"Expected result is 1 item list, current result is: {check_reference}."
+        back_orders_and_check_visible_order(driver=self.driver,
+                                            number_of_orders=TestData.VISIBLE_ORDER_1)
 
     """
     1. Create user.
@@ -195,7 +127,60 @@ class TestOrder(InitializeWebDriver):
 
     """
     def test_order_history_few_items_ordered(self):
-        pass
+        logging.warning("Create user.")
+        uniqe_id = str(uuid.uuid4())
+        generated_email = f"kazia{uniqe_id[:5]}@gmail.com"
+
+        page = create_user(driver=self.driver,
+                           title=TestData.TITLE,
+                           name=TestData.NAME,
+                           last_name=TestData.LAST_NAME,
+                           email=generated_email,
+                           password=TestData.PASSWORD,
+                           number_day=TestData.NUMBER_DAY,
+                           number_months=TestData.NUMBER_MONTHS,
+                           number_years=TestData.NUMBER_YEARS,
+                           address=TestData.ADDRESS,
+                           city=TestData.CITY,
+                           state=TestData.STATE,
+                           zip_code=TestData.ZIP_CODE,
+                           information=TestData.INFORMATION,
+                           home_number=TestData.HOME_NUMBER,
+                           selector_country=TestData.SELECTOR_CUNTRY,
+                           mobile_phone=TestData.MOBILE_PHONE,
+                           receive_special_offers=True,
+                           sign_up_newsletter=True)
+
+        logging.warning("Click Order history and details tab.")
+        page = page.click_order_history_and_details()
+
+        logging.warning("Check if alert warning is visible.")
+        page.check_alert_warning_visible()
+
+        logging.warning("Find Faded Short Sleeve T-shirts.")
+        logging.warning("Click Add to cart.")
+        logging.warning("Confirm order.")
+        create_and_add_to_card(driver=self.driver,
+                               input_keys=TestData.ORDER_INPUT_KEYS)
+
+        logging.warning("Find Faded Blouses.")
+        logging.warning("Click Add to cart.")
+        logging.warning("Confirm order.")
+        create_and_add_to_card(driver=self.driver,
+                               input_keys=TestData.ORDER_INPUT_KEYS_2)
+
+        logging.warning("Confirm summary.")
+        logging.warning("Confirm address.")
+        logging.warning("Mark agreement and confirm shipping.")
+        logging.warning("Choose and click payment method.")
+        logging.warning("Confirm order.")
+        create_order(driver=self.driver,
+                     payment_method=TestData.PAYMENT_METHOD,
+                     add_to_card=False)
+        logging.warning("Back to orders")
+        logging.warning("Check if new order is visible in order reference column.")
+        back_orders_and_check_visible_order(driver=self.driver,
+                                            number_of_orders=TestData.VISIBLE_ORDER_1)
 
     """
     1. Create user.
@@ -211,7 +196,7 @@ class TestOrder(InitializeWebDriver):
     11. Confirm order.
     12. Back to orders
     13. Check if new order is visible in order reference column.
-    14. Find Printed Dress.
+    14. Find Printed Summer Dress.
     15. Click Add to cart.
     16. Confirm order.
     17. Confirm summary.
@@ -224,4 +209,66 @@ class TestOrder(InitializeWebDriver):
     """
 
     def test_order_history_few_orders(self):
-        pass
+        logging.warning("Create user.")
+        uniqe_id = str(uuid.uuid4())
+        generated_email = f"kazia{uniqe_id[:5]}@gmail.com"
+
+        page = create_user(driver=self.driver,
+                           title=TestData.TITLE,
+                           name=TestData.NAME,
+                           last_name=TestData.LAST_NAME,
+                           email=generated_email,
+                           password=TestData.PASSWORD,
+                           number_day=TestData.NUMBER_DAY,
+                           number_months=TestData.NUMBER_MONTHS,
+                           number_years=TestData.NUMBER_YEARS,
+                           address=TestData.ADDRESS,
+                           city=TestData.CITY,
+                           state=TestData.STATE,
+                           zip_code=TestData.ZIP_CODE,
+                           information=TestData.INFORMATION,
+                           home_number=TestData.HOME_NUMBER,
+                           selector_country=TestData.SELECTOR_CUNTRY,
+                           mobile_phone=TestData.MOBILE_PHONE,
+                           receive_special_offers=True,
+                           sign_up_newsletter=True)
+
+        logging.warning("Click Order history and details tab.")
+        page = page.click_order_history_and_details()
+
+        logging.warning("Check if alert warning is visible.")
+        page.check_alert_warning_visible()
+
+        logging.warning("Find Faded Short Sleeve T-shirts.")
+        logging.warning("Click Add to cart.")
+        logging.warning("Confirm order.")
+        logging.warning("Confirm summary.")
+        logging.warning("Confirm address.")
+        logging.warning("Mark agreement and confirm shipping.")
+        logging.warning("Choose and click payment method.")
+        logging.warning("Confirm order.")
+        create_order(driver=self.driver,
+                     input_keys=TestData.ORDER_INPUT_KEYS,
+                     payment_method=TestData.PAYMENT_METHOD)
+        logging.warning("Back to orders")
+        logging.warning("Check if new order is visible in order reference column.")
+        back_orders_and_check_visible_order(driver=self.driver,
+                                            number_of_orders=TestData.VISIBLE_ORDER_1)
+        logging.warning("Find Printed Summer Dress.")
+        page.find_printed_summer_dress()
+
+        logging.warning("Click Add to cart.")
+        logging.warning("Confirm order.")
+        logging.warning("Confirm summary.")
+        logging.warning("Confirm address.")
+        logging.warning("Mark agreement and confirm shipping.")
+        logging.warning("Choose and click payment method.")
+        logging.warning("Confirm order.")
+        create_order(driver=self.driver,
+                     input_keys=TestData.ORDER_INPUT_KEYS,
+                     payment_method=TestData.PAYMENT_METHOD)
+
+        logging.warning("Back to orders.")
+        logging.warning("Verify that both orders appear in the order column.")
+        back_orders_and_check_visible_order(driver=self.driver,
+                                            number_of_orders=TestData.VISIBLE_ORDER_2)
